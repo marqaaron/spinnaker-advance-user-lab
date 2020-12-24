@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spinnaker-saul-env-vars
+  # NAMESPACE: Must be the same namespace as the rest of the Spinnaker Microservices in the same K8s cluster
+  namespace: spinnaker-system
+data:
+  # BASE_GATE_URL & BASE_DECK_URL: Must fully qualified domains with either 'http' or 'https' included **without** trailing '/'
+  BASE_DECK_URL: https://spinnaker.example.com
+
+  # BASE_GATE_URL: Must be on the same domain as Deck to allow authentication re-directs to sub-paths.
+  BASE_GATE_URL: https://spinnaker.example.com/api/v1
+
+  # APP_PATH: Sub-directory name **without** the leading '/'.
+  # APP_PATH: This is required since spinnaker-saul must also be on the same domain as Deck to leverage Spinnaker Authentication.
+  APP_PATH: saul

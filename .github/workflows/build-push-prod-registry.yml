@@ -1,0 +1,60 @@
+name: Build & Push to Production Registry
+
+on:
+
+  push:
+    tags: v[0-9]+.[0-9]+.[0-9]+
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Get the Version
+        id: vars
+        run: |
+          echo ::set-output name=sha_short::$(git rev-parse --short HEAD)
+          echo ::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})
+          echo ::set-output name=tags::$(echo ${GITHUB_REF#refs/tags/})
+
+      - name: Announce Branch & Version
+        run: |
+          echo ${{steps.vars.outputs.sha_short}}
+          echo ${{steps.vars.outputs.branch}}
+          echo ${{steps.vars.outputs.tags}}
+
+      - name: Create Docker Metadata
+        id: docker_metadata
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REGISTRY_PROD }}
+          tag-semver: |
+            {{version}}
+            {{major}}.{{minor}}.{{patch}}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Image & Push to Prod Registry
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile
+          push: true
+          tags: ${{steps.docker_metadata.outputs.tags}}
+          build-args: |
+            VERSION=${{steps.vars.outputs.tags}}
