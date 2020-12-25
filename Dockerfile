@@ -1,5 +1,6 @@
 FROM alpine:3.12
 MAINTAINER MarqAAron
+ARG VERSION='dev'
 RUN apk add --update nodejs npm nginx bash
 RUN mkdir -p /var/log/nginx
 RUN mkdir -p /var/www/html
