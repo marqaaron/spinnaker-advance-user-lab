@@ -1,0 +1,70 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# ----------- NOTE ------------
+#
+# This Kustomization manifest is setup such that all you have to do is change the BASE_GATE_URL and BASE_DECK_URL
+# properties in the below ConfigMap generator and then deploy the manifest with << kubectl apply -k . >> from within the
+# manifests/deploy/kustomize directory.  If you do only this, the application will be configured to be hosted at
+# the following:
+#
+#         http(s)://<<YOUR_BASE_DECK_URL>>/saul
+#
+# While this Kustomization manifest will deploy the required ConfigMap, Service, and Deployment to bring the Spinnaker
+# Advanced User Lab (SAUL) into your Spinnaker Cluster. You will still need to create an ingress in
+# your cluster to route traffic to the created Service.  Since Ingress methods are highly bespoke to each individual
+# environment, an Ingress is not included in this Kustomization manifest.  Checkout the manifests/ingress directory
+# for example Ingresses.
+#
+# -----------------------------
+
+# NAMESPACE: Must be the same namespace as the rest of the Spinnaker Microservices in the same K8s cluster
+namespace: spinnaker-system
+
+generatorOptions:
+  # DO NOT EDIT THIS SECTION
+  labels:
+    kustomize.generated.resources: spinnaker-saul
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: spinnaker-saul-env-vars
+    literals:
+      # BASE_GATE_URL & BASE_DECK_URL: Must fully qualified domains with either 'http' or 'https' included **without** trailing '/'
+      # BASE_GATE_URL: Must be on the same domain as Deck to allow authentication re-directs to sub-paths.
+      # APP_PATH: This is required since spinnaker-saul must also be on the same domain as Deck to leverage Spinnaker Authentication.
+      # APP_PATH: Sub-directory name **without** the leading '/'.
+      - BASE_GATE_URL=https://spinnaker.example.com/api/v1
+      - BASE_DECK_URL=https://spinnaker.example.com
+      - APP_PATH=saul
+
+images:
+  - name: index.docker.io/marqaaron/spinnaker-saul
+    # newTag: Deployment Manifest is set to the most recent image, but change the image tag to an alternate version as necessary
+    newTag: latest
+
+resources:
+  # DO NOT EDIT THIS SECTION
+  - ./resources/deployment.yml
+  - ./resources/service.yml
+
+patches:
+  - target:
+      # REQUIRED. Set Patch 'value' to the same app path as in configMapGenerator above
+      # but including a leading '/'
+      # Default setting is '/saul' which aligns with the default 'APP_PATH' above
+      kind: Deployment
+      name: spinnaker-saul
+    path: patch-deployment-readiness-probe-path.json
+  - target:
+      # OPTIONAL. Set Patch 'value' to 'IfNotPresent' or 'Always'
+      # Default settings is 'Always'
+      kind: Deployment
+      name: spinnaker-saul
+    path: patch-deployment-image-pull-policy.json
+  - target:
+      # OPTIONAL. Set Patch 'value' to integer reflecting number of desired replicas
+      # Default settings is 1
+      kind: Deployment
+      name: spinnaker-saul
+    path: patch-deployment-replicas.json

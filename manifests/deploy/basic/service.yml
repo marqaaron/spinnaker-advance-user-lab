@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spinnaker-saul
+  # NAMESPACE: Must be the same namespace as the rest of the Spinnaker Microservices in the same K8s cluster
+  namespace: spinnaker-system
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8082
+  selector:
+    ingress: spinnaker-saul

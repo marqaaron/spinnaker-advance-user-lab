@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    deployment: spinnaker-saul
+  name: spinnaker-saul
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spinnaker-saul
+  template:
+    metadata:
+      labels:
+        app: spinnaker-saul
+        ingress: spinnaker-saul
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: spinnaker-saul-env-vars
+          image: 'index.docker.io/marqaaron/spinnaker-saul:latest'
+          imagePullPolicy: Always
+          name: spinnaker-saul
+          ports:
+            - containerPort: 8082
+          readinessProbe:
+            httpGet:
+              path: /saul
+              port: 8082

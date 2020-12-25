@@ -1,0 +1,206 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400&display=swap');
+
+$saulPrimary: #546778;
+$saulSecondary: #F1C928;
+$saulPrimaryAction: #2764CE;
+$saulSecondaryAction: #F1C928;
+$saulSubmit: #4BAA4E;
+$saulCancel: #B72522;
+
+$spinnerColor: $saulPrimary;
+
+// ------------ BOOTSTRAP CUSTOMIZATION VARIABLES ------------ //
+
+$theme-colors: (
+        "primary": $saulPrimaryAction,
+        "success": $saulSubmit,
+        "warning": $saulSecondaryAction,
+        "danger": $saulCancel,
+        "info": $saulPrimary
+);
+
+$font-size-base: 1.4rem;
+//$border-radius: 0px;
+$font-family-base: 'Roboto', sans-serif;
+
+// Button Customizations
+//$btn-padding-x: 2px;
+//$btn-padding-y: 4px;
+
+// Input Customizations
+$form-text-margin-top: 0.5rem;
+$form-feedback-font-size: 90%;
+
+// ------------ BOOTSTRAP VUE CUSTOMIZATION VARIABLES ------------ //
+
+$b-sidebar-header-font-size: 2rem;
+
+// ------------ SWEETALERTS2 CUSTOMIZATION VARIABLES ------------ //
+
+$swal2-font-size: 1.4rem;
+
+$swal2-confirm-button-background-color: $saulSubmit;
+$swal2-cancel-button-background-color: $saulCancel;
+
+// Include Bootstrap and BootstrapVue SCSS files. Must be after variable overrides
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+@import 'node_modules/sweetalert2/src/sweetalert2';
+
+
+// Include any Mixins Logic. Must be after the imports
+
+
+// Additional Custom CSS to apply App Wide
+
+*:focus {
+  outline: none !important;
+}
+
+*[disabled] {
+  cursor: not-allowed;
+}
+
+.btn:focus {
+  box-shadow: none !important;
+}
+
+
+html {
+  height: 100%;
+  font-size:62.5%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+  font-size: 1.4rem;
+}
+
+.padded-container{
+  padding: 10px 15px;
+}
+
+.pointer {
+  cursor:pointer
+}
+
+.scroll-test {
+  height:2500px;
+}
+
+// Vue-Spinners Customization
+
+.spinner[data-v-168a067e] {
+  background-color: $spinnerColor !important;
+}
+
+.spinner>div[data-v-ae580a66],
+.spinner[data-v-6b9f29ee],
+.sk-folding-cube .sk-cube[data-v-02553f9a]:before,
+.cube1[data-v-12edc234],
+.cube2[data-v-12edc234],
+.double-bounce1[data-v-76b46833],
+.double-bounce2[data-v-76b46833],
+.sk-fading-circle .sk-circle[data-v-1e7464eb]:before{
+  background-color: $spinnerColor;
+}
+
+// App Container
+
+.app-container {
+  background-color: rgba(255,255,255,1);
+}
+
+// NavBar
+
+.nav-bar {
+  //background-color: rgba(36,101,160,1);
+  background-color: $saulPrimary;
+  -webkit-box-shadow: 0px -19px 18px 10px rgba(74,74,74,1);
+  -moz-box-shadow: 0px -19px 18px 10px rgba(74,74,74,1);
+  box-shadow: 0px -19px 18px 10px rgba(74,74,74,1);
+}
+
+.nav-bar-pin-menu-icon {
+  color: rgba(255,255,255,1);
+}
+
+.nav-bar-pin-menu-icon.active {
+  color: $saulSecondary;
+}
+
+.nav-bar-menu-toggle {
+  color: rgba(255,255,255,1);
+  font-weight:bolder;
+  margin: auto;
+}
+
+.navbar-light .navbar-brand, .navbar-light .navbar-brand:hover {
+  color: rgba(255,255,255,1);
+  font-weight: bolder;
+}
+
+// Menus
+
+#pinnedMenu {
+  background-color: #fbfbfb;
+}
+
+.menu-text {
+  background-color: #dedede;
+  color: #212529;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.menu-text:hover {
+  background-color: #D6D5D6;
+  color: #212529;
+}
+
+.menu-text.active {
+  background-color: rgb(82, 82, 82);
+  color: white;
+}
+
+.menu-bottom-border {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.sub-menu-text {
+  background-color: white;
+  color: #212529;
+  font-weight: bold;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+}
+
+.sub-menu-text:hover {
+  background-color: rgba(214,243,253,1);
+  color: #212529;
+}
+
+.sub-menu-text.active {
+  //background-color: #4ac1e1;
+  background-color: $saulSecondary;
+  color: #212529;
+}
+
+.sub-menu-bottom-border {
+  border-bottom: 1px solid #bfbfbf;
+}
+
+
+
+
+
+
+
+
+
+
+
