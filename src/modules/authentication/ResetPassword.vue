@@ -28,7 +28,7 @@
 
 <script>
   import {mapGetters} from "vuex";
-  import ResetPasswordForm from "@/core/authentication/components/ResetPasswordForm";
+  import ResetPasswordForm from "@/modules/authentication/components/ResetPasswordForm";
   import LoadingScreen from "@/core/layout/components/LoadingScreen";
 
   export default {

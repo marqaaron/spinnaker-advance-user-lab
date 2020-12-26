@@ -31,10 +31,10 @@
 
 <script>
   import {mapGetters} from "vuex";
-  import LoginForm from "@/core/authentication/components/LoginForm";
-  import ForgotPasswordForm from "@/core/authentication/components/ForgotPasswordForm";
-  import ForgotEmailForm from "@/core/authentication/components/ForgotEmailForm";
-  import LoginButton from "@/core/authentication/components/LoginButton";
+  import LoginForm from "@/modules/authentication/components/LoginForm";
+  import ForgotPasswordForm from "@/modules/authentication/components/ForgotPasswordForm";
+  import ForgotEmailForm from "@/modules/authentication/components/ForgotEmailForm";
+  import LoginButton from "@/modules/authentication/components/LoginButton";
 
   export default {
     name: "Authentication",

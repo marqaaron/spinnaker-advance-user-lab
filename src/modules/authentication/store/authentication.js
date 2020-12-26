@@ -1,6 +1,6 @@
 import api from "@/core/utilities/api";
 import log from "@/core/utilities/log";
-import gateEndpoints from "@/core/authentication/store/gateEndpoints";
+import gateEndpoints from "@/modules/authentication/store/gateEndpoints";
 
 const config = process.env;
 

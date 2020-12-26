@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import gateEndpoints from "@/core/authentication/store/gateEndpoints";
+    import gateEndpoints from "@/modules/authentication/store/gateEndpoints";
     export default {
         data() {
             return {

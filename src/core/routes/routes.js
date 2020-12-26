@@ -1,5 +1,5 @@
-import Authentication from "@/core/authentication/Authentication";
-import ResetPassword from "@/core/authentication/ResetPassword";
+import Authentication from "@/modules/authentication/Authentication";
+import ResetPassword from "@/modules/authentication/ResetPassword";
 import PipelineExpressionTester from "@/modules/pipelineExpressionTester/PipelineExpressionTester";
 import {store} from "@/main";
 import {enforceAuthentication,pullSaveUserDataFromLocalStorage,enforceAlreadyAuthenticated,redirectToLoginLocation,removeUserDataFromLocalStorage} from "@/core/utilities/helpersAuth";
