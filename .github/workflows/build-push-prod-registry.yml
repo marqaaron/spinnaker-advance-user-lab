@@ -19,7 +19,7 @@ jobs:
       - name: Get the Version
         id: vars
         run: |
-          echo ::set-output name=sha_short::$(git rev-parse --short "$GITHUB_SHA")
+          echo ::set-output name=sha_short::$(git rev-parse --short "${{github.event.pull_request.head.sha}}")
           echo ::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})
           echo ::set-output name=tags::$(echo ${GITHUB_REF#refs/tags/})
 
