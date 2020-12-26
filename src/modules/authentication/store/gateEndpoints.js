@@ -27,6 +27,6 @@ export default {
         if(!trailingSlashPresentGate){
             baseGateUrl = baseGateUrl + '/';
         }
-        return baseGateUrl + 'auth/loggedOut';
+        return baseGateUrl + 'auth/logout';
     }
 }
