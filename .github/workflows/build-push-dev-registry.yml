@@ -19,7 +19,7 @@ jobs:
       - name: Get the Version
         id: vars
         run: |
-          echo ::set-output name=sha_short::$(git rev-parse --short HEAD)
+          echo ::set-output name=sha_short::$(git rev-parse --short "${{github.event.pull_request.head.sha}}")
           echo ::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})
           echo ::set-output name=tags::$(echo ${GITHUB_REF#refs/tags/})
 
@@ -34,7 +34,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_REGISTRY_DEV }}
-          tag-sha: true
+          tag-custom: ${{steps.vars.outputs.sha_short}}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
