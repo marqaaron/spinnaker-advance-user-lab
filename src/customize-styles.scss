@@ -40,10 +40,10 @@ $b-sidebar-header-font-size: 2rem;
 
 // ------------ SWEETALERTS2 CUSTOMIZATION VARIABLES ------------ //
 
-$swal2-font-size: 1.4rem;
+$swal2-font-size: 1.4rem !important;
 
-$swal2-confirm-button-background-color: $saulSubmit;
-$swal2-cancel-button-background-color: $saulCancel;
+$swal2-confirm-button-background-color: $saulSubmit !important;
+$swal2-cancel-button-background-color: $saulCancel !important;
 
 // Include Bootstrap and BootstrapVue SCSS files. Must be after variable overrides
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
