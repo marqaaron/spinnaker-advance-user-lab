@@ -1,5 +1,4 @@
-import Authentication from "@/core/authentication/Authentication";
-import ResetPassword from "@/core/authentication/ResetPassword";
+import Authentication from "@/modules/authentication/Authentication";
 import PipelineExpressionTester from "@/modules/pipelineExpressionTester/PipelineExpressionTester";
 import {store} from "@/main";
 import {enforceAuthentication,pullSaveUserDataFromLocalStorage,enforceAlreadyAuthenticated,redirectToLoginLocation,removeUserDataFromLocalStorage} from "@/core/utilities/helpersAuth";
@@ -44,20 +43,6 @@ export const baseRoutes = [
                         }
                     )
                 }
-            } else {
-                removeUserDataFromLocalStorage();
-                redirectToLoginLocation(next);
-            }
-            next();
-        }
-    },
-    {
-        path: '/reset-password',
-        name: 'viewResetPassword',
-        component: ResetPassword,
-        beforeEnter(to, from, next) {
-            if(store.getters.authenticationEnabled){
-                pullSaveUserDataFromLocalStorage();
             } else {
                 removeUserDataFromLocalStorage();
                 redirectToLoginLocation(next);

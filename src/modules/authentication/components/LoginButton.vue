@@ -18,11 +18,10 @@
 </template>
 
 <script>
-    import gateEndpoints from "@/core/authentication/store/gateEndpoints";
     export default {
         data() {
             return {
-                msg: "Login Button Coming Soon!",
+
             }
         },
         created() {
@@ -33,7 +32,7 @@
         },
         methods: {
             onLogin(){
-                window.open(gateEndpoints.loginRedirectUrl(process.env),'_self');
+                this.$store.dispatch('logIn');
             }
         },
         components: {},

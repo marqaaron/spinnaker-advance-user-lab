@@ -1,8 +1,8 @@
 import api from "@/core/utilities/api";
 import helpers from "@/core/utilities/helpers";
 import log from "@/core/utilities/log";
-import baseStyles from "@/core/styles/styles";
-import baseLayoutSettings from "@/core/layout/layoutSettings";
+import styles from "@/core/layout/styles";
+import layoutSettings from "@/core/layout/layoutSettings";
 
 const config = process.env;
 
@@ -11,8 +11,8 @@ export default {
     windowWidth: window.innerWidth,
     isLoadingApp: true,
     activeCover: null,
-    settings: baseLayoutSettings,
-    styles: baseStyles
+    settings: layoutSettings,
+    styles: styles
   },
   getters: {
     isLoadingApp(state,getters,rootState){
