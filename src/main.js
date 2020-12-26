@@ -20,10 +20,10 @@ const router = new VueRouter({
 
 // INITIALIZE VUEX STORE AND MODULES
 import Vuex from 'vuex';
-import baseVuexModules from "@/core/vuex/vuexModules";
+import vuexModules from "@/modules/vuexModules";
 Vue.use(Vuex);
 const vuexConfig = {
-  modules: baseVuexModules,
+  modules: vuexModules,
   state: {}
 }
 export const store = new Vuex.Store(vuexConfig);
