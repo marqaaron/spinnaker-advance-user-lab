@@ -1,4 +1,3 @@
-import baseStyles from "@/core/styles/styles";
 import baseMenuItems from "@/core/layout/components/mainMenu/menuItems";
 import baseMenuSettings from "@/core/layout/components/mainMenu/menuSettings";
 import helpers from "@/core/utilities/helpers";
@@ -15,7 +14,6 @@ export default {
     activeContent: 'homeItem1',
     isLoadingContent: false,
     settings: baseMenuSettings,
-    styles: baseStyles,
     menus: menus()
   },
   getters: {
