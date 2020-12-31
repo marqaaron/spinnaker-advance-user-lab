@@ -6,12 +6,20 @@
             {{appName}} <b-badge variant="warning" size="xs" class="version-badge ml-3">{{ version }}</b-badge>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto text-right">
+            <span class="mr-3 pointer nav-bar-pin-menu-icon"
+                  style="margin:auto"
+                  title="Documentation"
+                  v-b-toggle.documentationSidebar
+                  v-b-tooltip.hover>
+                <font-awesome-icon icon="question-circle"
+                                   size="lg"/>
+            </span>
             <span class="mr-3 pointer nav-bar-pin-menu-icon" style="margin:auto"
-                v-if="displayPinButton"
-                :class="mainMenuPinActiveClass()"
-                @click="togglePinMenu()"
-                title="Pin Menu"
-                v-b-tooltip.hover>
+                  v-if="displayPinButton"
+                  :class="mainMenuPinActiveClass()"
+                  @click="togglePinMenu()"
+                  title="Pin Menu"
+                  v-b-tooltip.hover>
                 <font-awesome-icon icon="thumbtack"
                                    size="lg"/>
             </span>

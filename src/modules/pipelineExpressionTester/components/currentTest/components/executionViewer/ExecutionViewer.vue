@@ -1,33 +1,47 @@
 <template>
-    <div v-if="currentExecution">
+    <b-card>
         <b-row>
             <b-col>
-                <div id="currentExecutionContainer">
-                    <vue-json-pretty
+                    <span class="bold">
+                        <documentation-icon doc-id="pete-execution-context-viewer" class="mr-2"></documentation-icon>
+                        <span>
+                           Execution Context Viewer
+                        </span>
+                    </span>
+                <hr>
+            </b-col>
+        </b-row>
+        <div v-if="currentExecution">
+            <b-row>
+                <b-col>
+                    <div id="currentExecutionContainer">
+                        <vue-json-pretty
                             path="execution"
                             :data="currentExecution"
                             :deep="1"
                             :showLength="true"
                             selectableType="single"
                             @click="onClick"
-                    ></vue-json-pretty>
-                </div>
-            </b-col>
-        </b-row>
-    </div>
-    <div v-else>
-        <b-row>
-            <b-col>
-                <b-alert variant="secondary" show>No Current Execution to Display!</b-alert>
-            </b-col>
-        </b-row>
-    </div>
+                        ></vue-json-pretty>
+                    </div>
+                </b-col>
+            </b-row>
+        </div>
+        <div v-else>
+            <b-row>
+                <b-col>
+                    <b-alert variant="secondary" show>No Current Execution to Display!</b-alert>
+                </b-col>
+            </b-row>
+        </div>
+    </b-card>
 </template>
 
 <script>
     import {mapGetters} from "vuex";
     import helpers from "@/core/utilities/helpers";
     import VueJsonPretty from 'vue-json-pretty'
+    import DocumentationIconButton from "@/modules/documentation/components/DocumentationIconButton";
     export default {
         name: "ExecutionViewer",
         data() {
@@ -63,7 +77,8 @@
             }
         },
         components: {
-            'vue-json-pretty': VueJsonPretty
+            'vue-json-pretty': VueJsonPretty,
+            'documentation-icon': DocumentationIconButton
         }
     }
 </script>

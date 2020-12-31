@@ -61,5 +61,47 @@ export default {
   toMomentLocal(dateString,format){
     if (!dateString || !dateString.length) return '';
     return moment.zoneName(dateString, Intl.DateTimeFormat().resolvedOptions().timeZone).format(format).replace('Invalid date', '');
+  },
+  setListItemsForPage: function(_list,_page,_perPage){
+    let startPosition =  (_page - 1) * _perPage;
+    let endPosition = (_page * _perPage);
+    return _list.slice(startPosition,endPosition);
+  },
+  filterArrayByObjPropertyContainsValue(_array,_property,_value){
+    let arrayCopy = [..._array];
+    return arrayCopy.filter( (y)=> {
+      let value = (y[_property]).toString();
+      return value.includes(_value)
+    } );
+  },
+  filterArrayByAllObjectPropertiesContainingValue(_array,_allowedTypes,_value){
+    let arrayCopy = [..._array];
+    return arrayCopy.filter(o => {
+      return Object.keys(o).some(k => {
+        let propertyValue = o[k].toString();
+        if(_allowedTypes.includes(typeof propertyValue)){
+          return propertyValue.toLowerCase().includes(_value.toLowerCase())
+        }
+      })
+    })
+  },
+  highlightSearchMatch: function(_text,_search,_flags){
+    if(!_search || _search === '') {
+      return _text;
+    } else if(!_text || _text === '') {
+      return _text;
+    } else {
+      let flags;
+      if(_flags) {
+        flags = _flags;
+      } else {
+        flags = 'gi'
+      }
+      let string = _text.toString();
+      let search = new RegExp(_search, flags);
+      return string.replace(search, function(match){
+        return '<span class="highlighted-match">' + match + '</span>'
+      });
+    }
   }
 }
