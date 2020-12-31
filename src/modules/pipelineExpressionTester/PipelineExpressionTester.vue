@@ -1,5 +1,5 @@
 <template>
-    <div class="padded-container" v-if="!isLoadingContent">
+    <div>
         <b-row class="mb-2">
             <b-col>
                 <b-button-group class="btn-block">
@@ -11,13 +11,9 @@
         <current-test-section v-if="testerSection === 'current'" ></current-test-section>
         <test-history-section v-else></test-history-section>
     </div>
-    <div v-else>
-        <loading-screen></loading-screen>
-    </div>
 </template>
 
 <script>
-    import LoadingScreen from "@/core/layout/components/LoadingScreen";
     import {mapGetters} from "vuex";
     import CurrentTest from "@/modules/pipelineExpressionTester/components/currentTest/CurrentTest";
     import TestHistory from "@/modules/pipelineExpressionTester/components/testHistory/TestHistory";
@@ -31,14 +27,14 @@
             }
         },
         created() {
-            let activeContent;
+            /*let activeContent;
             if(typeof this.$route.params.activeContent != 'undefined'){
                 activeContent = this.$route.params.activeContent;
             } else {
                 activeContent = this.defaultContent;
-            }
-            this.$store.dispatch('setActiveMenu',this.activeMenu);
-            this.$store.dispatch('setActiveContent',activeContent);
+            }*/
+            //this.$store.dispatch('setActiveMenu',this.activeMenu);
+            //this.$store.dispatch('setActiveContent',activeContent);
         },
         computed: {
             ...mapGetters([
@@ -59,7 +55,6 @@
             }
         },
         components: {
-            'loading-screen': LoadingScreen,
             'current-test-section': CurrentTest,
             'test-history-section': TestHistory
         }

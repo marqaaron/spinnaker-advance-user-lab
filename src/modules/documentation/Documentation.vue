@@ -1,5 +1,5 @@
 <template>
-    <b-sidebar
+    <b-sidebar v-if="showSlider"
         id="documentationSidebar"
         @shown="onShowDocumentation()"
         @hidden="onHideDocumentation()"
@@ -12,6 +12,7 @@
             <footer-buttons></footer-buttons>
         </template>
     </b-sidebar>
+    <documentation-content v-else></documentation-content>
 </template>
 
 <script>
@@ -20,24 +21,38 @@ import DocumentationSliderFooterButtons from "@/modules/documentation/components
 import {mapGetters} from "vuex";
 export default {
     name: "Documentation",
+    props: {
+      standalone: {
+          type: Boolean,
+          default(){
+              return false;
+          }
+      }
+    },
     data() {
         return {
 
         }
     },
     created() {
-
+        this.$nextTick(()=>{
+            this.$store.dispatch('setStandaloneDocumentation', this.standalone);
+        })
     },
     computed: {
         ...mapGetters([
             'documentationSliderPosition',
-            'documentationSliderWidth'
+            'documentationSliderWidth',
+            'standaloneDocumentation',
         ]),
         sliderPosition(){
             return this.documentationSliderPosition === 'right';
         },
         sliderBorder(){
             return this.documentationSliderPosition === 'right' ? 'border-left' : 'border-right'
+        },
+        showSlider(){
+            return this.standalone === false;
         }
     },
     methods: {

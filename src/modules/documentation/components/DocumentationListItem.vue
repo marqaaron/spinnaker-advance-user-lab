@@ -43,7 +43,7 @@
                         size="sm"
                         title="Open in New Window"
                         v-b-tooltip.hover
-                        @click="onOpenDocumentation()">
+                        @click="onOpenDocumentation(item.id)">
                         <font-awesome-icon
                             icon="external-link-alt"
                         ></font-awesome-icon>
@@ -57,7 +57,6 @@
 <script>
 import {mapGetters} from "vuex";
 import helpers from "@/core/utilities/helpers";
-import alerts from "@/core/utilities/alerts";
 export default {
     name: "DocumentationListItem",
     props: {
@@ -78,7 +77,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-
+            'viewDocumentation'
         ]),
         categories(){
             return this.item.categories.split('|');
@@ -91,8 +90,9 @@ export default {
         highlightSearchMatch(_value){
             return helpers.highlightSearchMatch(_value,this.search)
         },
-        onOpenDocumentation(){
-            this.$swal(alerts.comingSoon());
+        onOpenDocumentation(_itemId){
+            let link = '/' + process.env.VUE_APP_APP_PATH + '/references/documentation?docId=' + _itemId ;
+            window.open(link,'_blank');
         }
     },
     components: {

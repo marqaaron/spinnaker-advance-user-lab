@@ -15,6 +15,9 @@ export default {
     styles: styles
   },
   getters: {
+    windowWidth(state,getters,rootState){
+      return state.windowWidth;
+    },
     isLoadingApp(state,getters,rootState){
       return state.isLoadingApp;
     },

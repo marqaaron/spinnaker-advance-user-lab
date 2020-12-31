@@ -89,6 +89,9 @@ export default {
         })
         window.addEventListener("resize",this.onWindowResize);
     },
+    destroyed() {
+        window.removeEventListener("resize",this.onWindowResize);
+    },
     computed: {
         ...mapGetters([
             "paginationContainerWidth"
