@@ -4,7 +4,7 @@
         <hr>
         <toolbar></toolbar>
         <documentation-list v-if="viewDocumentation === null"></documentation-list>
-        <placeholder v-else-if="viewDocumentation === false" variant="danger" message="This documentation is not available."></placeholder>
+        <placeholder v-else-if="viewDocumentation === false" variant="danger" message="This documentation does not exist."></placeholder>
         <markdown-viewer v-else :markdown="viewDocumentation"></markdown-viewer>
     </div>
 </template>

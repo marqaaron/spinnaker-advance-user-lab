@@ -1,14 +1,15 @@
-import Authentication from "@/modules/authentication/Authentication";
-import PipelineExpressionTester from "@/modules/pipelineExpressionTester/PipelineExpressionTester";
 import {store} from "@/main";
 import {enforceAuthentication,pullSaveUserDataFromLocalStorage,enforceAlreadyAuthenticated,redirectToLoginLocation,removeUserDataFromLocalStorage} from "@/core/utilities/helpersAuth";
 import NotFound from "@/core/routes/NotFound";
+import Authentication from "@/modules/authentication/Authentication";
+import ToolsView from "@/views/ToolsView";
+import ReferenceView from "@/views/ReferenceView";
 
 export const baseRoutes = [
     {
-        path: '/home',
-        name: 'viewHome',
-        component: PipelineExpressionTester,
+        path: '/tools/:activeContent?',
+        name: 'viewTools',
+        component: ToolsView,
         beforeEnter(to, from, next) {
             if(store.getters.authenticationEnabled){
                 pullSaveUserDataFromLocalStorage();
@@ -19,7 +20,20 @@ export const baseRoutes = [
             next();
         }
     },
-
+    {
+        path: '/references/:activeContent?',
+        name: 'viewReference',
+        component: ReferenceView,
+        beforeEnter(to, from, next) {
+            if(store.getters.authenticationEnabled){
+                pullSaveUserDataFromLocalStorage();
+                enforceAuthentication(next);
+            } else {
+                removeUserDataFromLocalStorage();
+            }
+            next();
+        }
+    },
     {
         path: '/login',
         name: 'viewLogin',

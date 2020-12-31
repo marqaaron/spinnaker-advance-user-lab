@@ -11,6 +11,7 @@ const config = process.env;
 export default {
     state: {
         documentationVisible: false,
+        standaloneDocumentation: false,
         documentationSliderPosition: 'right',
         documentationSliderWidth: '50%',
         viewDocumentation: null,
@@ -84,6 +85,9 @@ export default {
         },
         availableDocumentation(state){
             return state.availableDocumentation;
+        },
+        standaloneDocumentation(state){
+            return state.standaloneDocumentation;
         }
     },
     actions: {
@@ -101,6 +105,9 @@ export default {
         },
         setViewDocumentation(context,payload){
             context.commit("setViewDocumentation",payload);
+        },
+        setStandaloneDocumentation(context,payload) {
+            context.commit("setStandaloneDocumentation", payload);
         }
     },
     mutations: {
@@ -115,6 +122,9 @@ export default {
         },
         setViewDocumentation(state, payload) {
             state.viewDocumentation = payload
+        },
+        setStandaloneDocumentation(state, payload) {
+            state.standaloneDocumentation = payload;
         }
     }
 }

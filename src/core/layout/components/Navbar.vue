@@ -9,6 +9,7 @@
             <span class="mr-3 pointer nav-bar-pin-menu-icon"
                   style="margin:auto"
                   title="Documentation"
+                  v-if="!standaloneDocumentation"
                   v-b-toggle.documentationSidebar
                   v-b-tooltip.hover>
                 <font-awesome-icon icon="question-circle"
@@ -55,7 +56,8 @@ export default {
             'pinMenu',
             'pinMenuBreakpoint',
             'navBarStyles',
-            'appName'
+            'appName',
+            'standaloneDocumentation'
         ]),
         version(){
             return (typeof process.env.VUE_APP_VERSION !== 'undefined') ? process.env.VUE_APP_VERSION : 'Dev';

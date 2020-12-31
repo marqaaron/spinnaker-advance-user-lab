@@ -1,7 +1,7 @@
 <template>
     <div id="menuContainer">
         <div v-for="(menu,index) in menus" :key="index" >
-            <div v-if="(!menu.authRequired || isLoggedIn || !authenticationEnabled) && menu.display">
+            <div v-if="((!menu.authRequired || isLoggedIn || !authenticationEnabled) && menu.display && !menu.hideAfterAuth ) || (!isLoggedIn && menu.hideAfterAuth)">
                 <div v-if="!menu.externalLink">
                     <router-link tag="div" :to="menu.link">
                         <div class="menu-text pointer"

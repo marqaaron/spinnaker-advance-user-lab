@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="markdown-viewer-wrapper">
         <b-card :class="markdownContainerClasses">
             <vue-markdown :source="markdown"></vue-markdown>
         </b-card>
@@ -29,19 +29,18 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'documentationSliderWidth'
+            'documentationSliderWidth',
+            'standaloneDocumentation',
+            'windowWidth'
         ]),
-        markdownContainerWidth(){
-            return document.querySelector('.markdown-container').clientWidth
-        },
         markdownContainerClasses(){
             return {
                 'markdown-container': true,
-                'markdown-container-33': this.documentationSliderWidth === '33%',
-                'markdown-container-50': this.documentationSliderWidth === '50%',
-                'markdown-container-100': this.documentationSliderWidth === '100%'
+                'markdown-container-33': (this.documentationSliderWidth === '33%' && this.standaloneDocumentation === false),
+                'markdown-container-50': (this.documentationSliderWidth === '50%' && this.standaloneDocumentation === false),
+                'markdown-container-100': (this.documentationSliderWidth === '100%' && this.standaloneDocumentation === false)
             }
-        }
+        },
     },
     methods: {
 
@@ -54,6 +53,43 @@ export default {
 
 <style>
 
+.markdown-container img{
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 1px solid grey;
+}
+
+@media only screen and (min-width: 1601px) {
+    .markdown-container img{
+        width: 25%;
+    }
+}
+
+@media only screen and (max-width: 1600px) {
+    .markdown-container img{
+        width: 35%;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .markdown-container img{
+        width: 45%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .markdown-container img{
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    .markdown-container img{
+        width: 65%;
+    }
+}
+
 .markdown-container-33 img{
     width: 90%;
     display: block;
@@ -65,7 +101,7 @@ export default {
 }
 
 .markdown-container-50 img{
-    width: 75%;
+    width: 55%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -75,7 +111,7 @@ export default {
 }
 
 .markdown-container-100 img{
-    width: 40%;
+    width: 35%;
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;

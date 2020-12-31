@@ -103,5 +103,17 @@ export default {
         return '<span class="highlighted-match">' + match + '</span>'
       });
     }
+  },
+  validContent: function(_contentArray,_contentString){
+    return _contentArray.includes(_contentString);
+  },
+  queryPresent: function(_routerQueryObject){
+    return Object.entries(_routerQueryObject).length > 0;
+  },
+  createRouterPush: function(_path,_query){
+    return {
+      path: _path,
+      query: typeof _query !== 'undefined' ? _query : {}
+    }
   }
 }

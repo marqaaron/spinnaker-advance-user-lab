@@ -1,5 +1,5 @@
 export default {
-  loginRedirect: '/home',
+  loginRedirect: '/tools',
   logoutRedirect: '/login',
   defaultLoadingTimeout: 1000,
   enableMenuTextBorder: true,
