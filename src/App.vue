@@ -7,6 +7,7 @@
         </b-container>
         <main-menu></main-menu>
         <cover v-if="activeCover != null"></cover>
+        <documentation></documentation>
     </div>
 </template>
 
@@ -15,6 +16,7 @@ import Navbar from "@/core/layout/components/Navbar";
 import MainMenu from "@/core/layout/components/mainMenu/MainMenu";
 import Cover from "@/core/layout/components/Cover";
 import {mapGetters} from "vuex";
+import Documentation from "@/modules/documentation/Documentation";
 
 export default {
     data () {
@@ -40,7 +42,8 @@ export default {
     components: {
         'nav-bar': Navbar,
         'main-menu': MainMenu,
-        'cover': Cover
+        'cover': Cover,
+        'documentation': Documentation
     },
     computed: {
         ...mapGetters([

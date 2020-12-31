@@ -4,9 +4,10 @@
             <b-card>
                 <b-row>
                     <b-col cols="12">
-                        <label for="pipelineExpression">
+                        <span class="bold">
+                            <documentation-icon doc-id="pete-expression-editor" class="mr-2"></documentation-icon>
                             Pipeline Expression Editor
-                        </label>
+                        </span>
                         <b-button
                                 variant="outline-primary"
                                 @click="onCopyExpression"
@@ -29,6 +30,7 @@
                         >
                             <font-awesome-icon icon="trash-alt"></font-awesome-icon>
                         </b-button>
+                        <hr>
                         <b-alert variant="secondary" show class="mt-2 mb-2 alert-tip">
                             NOTE: Expression must be written without the surrounding <span class="bold">${ }</span>
                         </b-alert>
@@ -58,7 +60,10 @@
                         <hr>
                         <b-row class="mb-2">
                             <b-col>
-                                <span class="bold">Expression Syntax Helpers</span>
+                                <span class="bold">
+                                <documentation-icon doc-id="pete-expression-syntax-helpers" class="mr-2"></documentation-icon>
+                                    Expression Syntax Helpers
+                                </span>
                                 <b-form-checkbox v-model="executionElementPathMode"
                                                  @change="onUpdateSelectedElementPathInsertMode($event)"
                                                  class="mb-3 float-right pointer" size="sm" switch>
@@ -125,6 +130,7 @@
     import ExpressionHelperArraySize from "@/modules/pipelineExpressionTester/components/currentTest/components/expressionHelpers/ExpressionHelperArraySize";
     import ExpressionHelperPropertyValue from "@/modules/pipelineExpressionTester/components/currentTest/components/expressionHelpers/ExpressionHelperPropertyValue";
     import ExpressionHelperPropertyName from "@/modules/pipelineExpressionTester/components/currentTest/components/expressionHelpers/ExpressionHelperPropertyName";
+    import DocumentationIconButton from "@/modules/documentation/components/DocumentationIconButton";
     export default {
         name: "ExpressionEditor",
         data() {
@@ -277,7 +283,8 @@
             'expression-helper-filter-array-property-regex': ExpressionHelperFilterArrayPropertyRegex,
             'expression-helper-array-size': ExpressionHelperArraySize,
             'expression-helper-property-value': ExpressionHelperPropertyValue,
-            'expression-helper-property-name': ExpressionHelperPropertyName
+            'expression-helper-property-name': ExpressionHelperPropertyName,
+            'documentation-icon': DocumentationIconButton
         }
     }
 </script>

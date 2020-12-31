@@ -184,14 +184,22 @@ body {
   color: #212529;
 }
 
-.sub-menu-text.active {
-  //background-color: #4ac1e1;
+.sub-menu-text.active, .highlighted-match {
+  background-color: $saulSecondary;
+  color: #212529;
+}
+
+.list-group-item:hover {
   background-color: $saulSecondary;
   color: #212529;
 }
 
 .sub-menu-bottom-border {
   border-bottom: 1px solid #bfbfbf;
+}
+
+.bold {
+  font-weight:bold;
 }
 
 

@@ -46,11 +46,11 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import ExecutionViewer from "@/modules/pipelineExpressionTester/components/currentTest/components/ExecutionViewer";
-    import ResultsViewer from "@/modules/pipelineExpressionTester/components/currentTest/components/ResultsViewer";
-    import TestSettings from "@/modules/pipelineExpressionTester/components/currentTest/components/TestSettings";
+    import ExecutionViewer from "@/modules/pipelineExpressionTester/components/currentTest/components/executionViewer/ExecutionViewer";
+    import ResultsViewer from "@/modules/pipelineExpressionTester/components/currentTest/components/resultsViewer/ResultsViewer";
+    import TestSettings from "@/modules/pipelineExpressionTester/components/currentTest/components/testSettings/TestSettings";
     import ExpressionEditor
-        from "@/modules/pipelineExpressionTester/components/currentTest/components/ExpressionEditor";
+        from "@/modules/pipelineExpressionTester/components/currentTest/components/expressionEditor/ExpressionEditor";
     export default {
         name: "CurrentTest",
         data() {

@@ -4,7 +4,12 @@
             <b-card>
                 <b-row>
                     <b-col>
-                        <span class="bold">Tester Settings</span>
+                        <span class="bold">
+                            <documentation-icon doc-id="pete-test-settings" class="mr-2"></documentation-icon>
+                            <span>
+                                 Tester Settings
+                            </span>
+                        </span>
                         <b-button variant="outline-danger"
                                   size="sm"
                                   @click="onResetTestSettings"
@@ -100,6 +105,7 @@
     import {mapGetters} from "vuex";
     import alerts from "@/core/utilities/alerts";
     import helpers from "@/core/utilities/helpers";
+    import DocumentationIconButton from "@/modules/documentation/components/DocumentationIconButton";
     export default {
         name: "TestSettings",
         data() {
@@ -276,7 +282,7 @@
             }
         },
         components: {
-
+            'documentation-icon': DocumentationIconButton
         }
     }
 </script>

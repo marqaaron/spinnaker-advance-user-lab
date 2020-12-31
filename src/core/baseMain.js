@@ -5,16 +5,46 @@ import {BootstrapVue, IconsPlugin} from "bootstrap-vue";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.min.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faThumbtack, faSync,faTrashAlt,faCopy,faFileExport,faDownload,faPaste } from '@fortawesome/free-solid-svg-icons';
+import {
+    faThumbtack,
+    faSync,
+    faTrashAlt,
+    faCopy,
+    faFileExport,
+    faDownload,
+    faPaste,
+    faQuestionCircle,
+    faBackward,
+    faForward,
+    faCaretRight,
+    faCaretLeft,
+    faEye,
+    faExternalLinkAlt
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VTooltip from 'v-tooltip';
 import VueSweetalert2 from "vue-sweetalert2";
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Vuelidate from "vuelidate";
 import VueClipboard from "vue-clipboard2";
+import VueMarkdown from 'vue-markdown-v2'
 
 export const baseMain = function(){
-  library.add(faThumbtack,faSync,faTrashAlt,faCopy,faFileExport,faDownload,faPaste);
+  library.add(
+      faThumbtack,
+      faSync,
+      faTrashAlt,
+      faCopy,
+      faFileExport,
+      faDownload,
+      faPaste,
+      faQuestionCircle,
+      faBackward,
+      faForward,
+      faCaretRight,
+      faExternalLinkAlt,
+      faEye,
+      faCaretLeft);
   Vue.component('font-awesome-icon', FontAwesomeIcon);
   Vue.use(BootstrapVue);
   Vue.use(IconsPlugin);
@@ -24,6 +54,7 @@ export const baseMain = function(){
   Vue.use(Vuelidate);
   Vue.use(VueResource);
   Vue.use(VueClipboard);
+  Vue.use(VueMarkdown);
 }
 
 
