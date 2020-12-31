@@ -2,6 +2,8 @@ FROM alpine:3.12
 MAINTAINER MarqAAron
 ARG VERSION='dev'
 RUN apk add --update nodejs npm nginx bash
+RUN apk add --no-cache git
+RUN git --version
 RUN mkdir -p /var/log/nginx
 RUN mkdir -p /var/www/html
 COPY nginx_config/nginx.conf /etc/nginx/nginx.conf
