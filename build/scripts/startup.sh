@@ -11,7 +11,13 @@ echo '
 
 echo "--------- Startup Logs -----------"
 
-export VUE_APP_VERSION=$(cat /scripts/version)
+mkdir -p /var/log/nginx
+mkdir -p /var/www/html
+
+cp /app/build/nginx_config/nginx.conf /etc/nginx/nginx.conf
+cp /app/build/nginx_config/default.conf /etc/nginx/conf.d/default.conf
+
+export VUE_APP_VERSION=$(cat /app/build/scripts/version)
 
 if [ -z "$VUE_APP_VERSION" ];
 then
@@ -66,6 +72,8 @@ else
   echo "Moving build files from /app/dist to /var/www/html/$APP_PATH"
   cp -r /app/dist/* /var/www/html/$APP_PATH
 fi
+
+rm -rf /app/node_modules
 
 echo "Making nginx user owner of /var/www/html directory"
 chown nginx:nginx /var/www/html

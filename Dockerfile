@@ -1,19 +1,22 @@
-FROM alpine:3.12
-MAINTAINER MarqAAron
+FROM alpine:3.12 AS baseImage
 ARG VERSION='dev'
 RUN apk add --update nodejs npm nginx bash
 RUN apk add --no-cache git
-RUN git --version
-RUN mkdir -p /var/log/nginx
-RUN mkdir -p /var/www/html
-COPY nginx_config/nginx.conf /etc/nginx/nginx.conf
-COPY nginx_config/default.conf /etc/nginx/conf.d/default.conf
-COPY /scripts /scripts
-RUN cd /scripts && echo ${VERSION} > version && chmod +rw version
+WORKDIR /version
+RUN echo ${VERSION} > version && chmod +rw version
+
+FROM baseImage AS saulApp
 WORKDIR /app
+COPY /build ./build
+COPY --from=baseImage /version ./build/scripts
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN ["chmod", "+x", "scripts/startup.sh"]
-ENTRYPOINT ["/bin/bash","-c","scripts/startup.sh"]
+RUN ["chmod", "+x", "./build/scripts/startup.sh"]
+
+FROM baseImage
+MAINTAINER MarqAAron
+WORKDIR /app
+COPY --from=saulApp /app .
+ENTRYPOINT ["/bin/bash","-c","./build/scripts/startup.sh"]
 EXPOSE 8082
