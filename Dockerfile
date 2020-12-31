@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 RUN ["chmod", "+x", "./build/scripts/startup.sh"]
 
-FROM saulintermediate
+FROM baseimage
 MAINTAINER MarqAAron
 WORKDIR /app
 COPY --from=saulintermediate /app .
