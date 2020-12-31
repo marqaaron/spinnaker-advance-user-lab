@@ -9,7 +9,7 @@
                             {{menu.headerText}}
                         </div>
                     </router-link>
-                    <template v-if="menu.name === activeMenu || !isLoggedIn && menu.name === 'home'">
+                    <template v-if="menu.name === activeMenu">
                         <router-link tag="div" :to="item.link" v-for="(item,index) in menu.items" :key="index">
                             <div class="sub-menu-text pointer"
                                  :class="setClassesOnSubMenu(item.name,index,menu.items.length)"
@@ -25,7 +25,7 @@
                          @click="goToLink(menu.link)">
                         {{menu.headerText}}
                     </div>
-                    <template v-if="menu.name === activeMenu || !isLoggedIn && menu.name === 'home'">
+                    <template v-if="menu.name === activeMenu">
                         <div class="sub-menu-text pointer"
                              :class="setClassesOnSubMenu(item.name,index,menu.items.length)"
                              v-for="(item,index) in menu.items" :key="index"
