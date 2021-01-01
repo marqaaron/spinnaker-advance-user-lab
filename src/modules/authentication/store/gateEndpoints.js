@@ -1,28 +1,28 @@
 export default {
-    loginRedirectUrl(_config){
-        let baseGateUrl = _config.VUE_APP_BASE_GATE_URL;
+    loginRedirectUrl(_appConfig,_envConfig){
+        let baseGateUrl = _appConfig.BASE_GATE_URL;
         let trailingSlashPresentGate = baseGateUrl.match(/^.*\/$/);
         if(!trailingSlashPresentGate){
             baseGateUrl = baseGateUrl + '/';
         }
-        let baseDeckUrl = _config.VUE_APP_BASE_DECK_URL;
+        let baseDeckUrl = _appConfig.BASE_DECK_URL;
         let trailingSlashPresentDeck = baseDeckUrl.match(/^.*\/$/);
         if(!trailingSlashPresentDeck){
             baseDeckUrl = baseDeckUrl + '/';
         }
-        let appPath = (typeof _config.VUE_APP_APP_PATH !== 'undefined' ) ? _config.VUE_APP_APP_PATH : '';
+        let appPath = _envConfig.VUE_APP_PATH;
         return baseGateUrl + 'auth/redirect?to=' + baseDeckUrl + appPath;
     },
-    userDetailsUrl(_config){
-        let baseGateUrl = _config.VUE_APP_BASE_GATE_URL;
+    userDetailsUrl(_appConfig){
+        let baseGateUrl = _appConfig.BASE_GATE_URL;
         let trailingSlashPresentGate = baseGateUrl.match(/^.*\/$/);
         if(!trailingSlashPresentGate){
             baseGateUrl = baseGateUrl + '/';
         }
         return baseGateUrl + 'auth/user';
     },
-    logOutUrl(_config){
-        let baseGateUrl = _config.VUE_APP_BASE_GATE_URL;
+    logOutUrl(_appConfig){
+        let baseGateUrl = _appConfig.BASE_GATE_URL;
         let trailingSlashPresentGate = baseGateUrl.match(/^.*\/$/);
         if(!trailingSlashPresentGate){
             baseGateUrl = baseGateUrl + '/';

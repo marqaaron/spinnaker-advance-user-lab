@@ -2,8 +2,8 @@ import api from "@/core/utilities/api";
 import log from "@/core/utilities/log";
 import {applications,applicationPipelineConfigs,applicationPipelineExecutions, successfulResults, failureResults} from "./mockData";
 import gateEndpoints from "@/modules/pipelineExpressionTester/store/gateEndpoints";
-
-const config = process.env;
+import {appConfig} from "@/main";
+import {envConfig} from "@/main";
 
 export default {
     state: {
@@ -76,9 +76,9 @@ export default {
     actions: {
         getApplications({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(config.NODE_ENV !== 'development'){
+                if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Applications");
-                    api.get(gateEndpoints.applicationsUrl(config)).then(
+                    api.get(gateEndpoints.applicationsUrl(appConfig)).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Applications successfully retrieved");
@@ -104,9 +104,9 @@ export default {
         },
         getApplicationPipelineConfigs({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(config.NODE_ENV !== 'development'){
+                if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Pipeline Configs");
-                    api.get(gateEndpoints.pipelineConfigsUrl(config,payload)).then(
+                    api.get(gateEndpoints.pipelineConfigsUrl(appConfig,payload)).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Pipeline Configs successfully retrieved");
@@ -132,9 +132,9 @@ export default {
         },
         getApplicationPipelineExecutions({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(config.NODE_ENV !== 'development'){
+                if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Pipeline Executions");
-                    api.get(gateEndpoints.pipelineExecutionsUrl(config,payload)).then(
+                    api.get(gateEndpoints.pipelineExecutionsUrl(appConfig,payload)).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Pipeline Executions successfully retrieved");
@@ -162,14 +162,14 @@ export default {
             return new Promise ((resolve,reject)=>{
                 let test = payload;
                 let requestExpression =  '${ ' + payload.expression  + ' }';
-                if(config.NODE_ENV !== 'development'){
+                if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Expression Evaluation");
                     let requestConfig = {
                         headers: {
                             'Content-type': 'text/plain'
                         }
                     };
-                    api.post(gateEndpoints.evaluateExpressionUrl(config,payload.pipelineId),requestExpression,requestConfig).then(
+                    api.post(gateEndpoints.evaluateExpressionUrl(appConfig,payload.pipelineId),requestExpression,requestConfig).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Evaluate Expression successfully retrieved");

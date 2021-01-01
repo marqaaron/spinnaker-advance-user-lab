@@ -4,8 +4,6 @@ import log from "@/core/utilities/log";
 import styles from "@/core/layout/styles";
 import layoutSettings from "@/core/layout/layoutSettings";
 
-const config = process.env;
-
 export default {
   state: {
     windowWidth: window.innerWidth,
@@ -129,21 +127,6 @@ export default {
     },
     setCover(context,payload){
       context.commit("setCover",payload);
-    },
-    saveUIConfig({commit,getters},payload){
-      return new Promise((resolve, reject) => {
-        log.text("Sending Layout Config to " + config.VUE_APP_ENDPOINT_SAVE_UI_CONFIG);
-        api.post(config.VUE_APP_ENDPOINT_SAVE_UI_CONFIG,getters.layoutConfig).then(
-          (response) => {
-            log.text("Layout Config successfully saved");
-            resolve(true);
-          },
-          (error) => {
-            log.obj("Layout Config Save Error",error);
-            reject(api.error(error));
-          }
-        )
-      })
     }
   },
   mutations: {

@@ -39,6 +39,7 @@
 
 <script>
 import {mapGetters} from "vuex";
+import {appConfig} from "@/main";
 
 export default {
     data () {
@@ -60,7 +61,7 @@ export default {
             'standaloneDocumentation'
         ]),
         version(){
-            return (typeof process.env.VUE_APP_VERSION !== 'undefined') ? process.env.VUE_APP_VERSION : 'Dev';
+            return appConfig.VERSION
         }
     },
     methods: {

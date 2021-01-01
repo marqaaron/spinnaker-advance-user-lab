@@ -17,6 +17,9 @@ import MainMenu from "@/core/layout/components/mainMenu/MainMenu";
 import Cover from "@/core/layout/components/Cover";
 import {mapGetters} from "vuex";
 import Documentation from "@/modules/documentation/Documentation";
+import {appConfig} from "@/main";
+import {envConfig} from "@/main";
+import log from "@/core/utilities/log";
 
 export default {
     data () {
@@ -25,15 +28,17 @@ export default {
         }
     },
     created() {
+        log.obj('Environment Config', envConfig);
+        log.obj('App Config', appConfig);
         this.windowWidth = window.innerWidth;
         if(this.windowWidth < this.minBrowserWidth){
             this.$store.dispatch('setActiveCover','displayTooSmall');
         } else {
             this.$store.dispatch('setActiveCover',null);
         }
-        if(typeof process.env.VUE_APP_BASE_DECK_URL === 'undefined'){
+        if(appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
             this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
-        } else if(typeof process.env.VUE_APP_BASE_GATE_URL === 'undefined'){
+        } else if(appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
             this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
         }
         this.$store.dispatch('setWindowWidth',this.windowWidth);
@@ -64,9 +69,9 @@ export default {
                 } else {
                     this.$store.dispatch('setActiveCover',null);
                 }
-                if(typeof process.env.VUE_APP_BASE_DECK_URL === 'undefined'){
+                if(appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
                     this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
-                } else if(typeof process.env.VUE_APP_BASE_GATE_URL === 'undefined'){
+                } else if(appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
                     this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
                 }
             }

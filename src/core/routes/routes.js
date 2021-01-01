@@ -65,6 +65,10 @@ export const baseRoutes = [
         }
     },
     {
+        path: '/',
+        redirect: '/login'
+    },
+    {
         path: '*',
         component: NotFound,
         beforeEnter(to, from, next) {

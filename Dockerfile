@@ -1,16 +1,18 @@
 FROM alpine:3.12 AS baseimage
 ARG VERSION='dev'
-RUN apk add --update nodejs npm nginx bash && apk add --no-cache git
+RUN apk add --update nodejs npm nginx bash
 WORKDIR /version
 RUN echo ${VERSION} > version && chmod +rw version
 
 FROM baseimage AS saulintermediate
+RUN apk add --no-cache git
 WORKDIR /app
 COPY /build ./build
 COPY --from=baseimage /version ./build/scripts
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npm run build && rm -rf /app/node_modules
 RUN ["chmod", "+x", "./build/scripts/startup.sh"]
 
 FROM baseimage

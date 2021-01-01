@@ -2,32 +2,32 @@ import {store} from "@/main";
 import alerts from "@/core/utilities/alerts";
 
 export default {
-    applicationsUrl(_config){
-        let baseGateUrl = _config.VUE_APP_BASE_GATE_URL;
+    applicationsUrl(_appConfig){
+        let baseGateUrl = _appConfig.BASE_GATE_URL;
         let trailingSlashPresent = baseGateUrl.match(/^.*\/$/);
         if(!trailingSlashPresent){
             baseGateUrl = baseGateUrl + '/';
         }
         return baseGateUrl + 'applications';
     },
-    pipelineConfigsUrl(_config,_applicationName){
-        let baseGateUrl = _config.VUE_APP_BASE_GATE_URL;
+    pipelineConfigsUrl(_appConfig,_applicationName){
+        let baseGateUrl = _appConfig.BASE_GATE_URL;
         let trailingSlashPresent = baseGateUrl.match(/^.*\/$/);
         if(!trailingSlashPresent){
             baseGateUrl = baseGateUrl + '/';
         }
         return baseGateUrl + 'applications/' + _applicationName + '/pipelineConfigs'
     },
-    pipelineExecutionsUrl(_config,_applicationName){
-        let baseGateUrl = _config.VUE_APP_BASE_GATE_URL;
+    pipelineExecutionsUrl(_appConfig,_applicationName){
+        let baseGateUrl = _appConfig.BASE_GATE_URL;
         let trailingSlashPresent = baseGateUrl.match(/^.*\/$/);
         if(!trailingSlashPresent){
             baseGateUrl = baseGateUrl + '/';
         }
         return baseGateUrl + 'applications/' + _applicationName + '/pipelines'
     },
-    evaluateExpressionUrl(_config,_pipelineId){
-        let baseGateUrl = _config.VUE_APP_BASE_GATE_URL;
+    evaluateExpressionUrl(_appConfig,_pipelineId){
+        let baseGateUrl = _appConfig.BASE_GATE_URL;
         let trailingSlashPresent = baseGateUrl.match(/^.*\/$/);
         if(!trailingSlashPresent){
             baseGateUrl = baseGateUrl + '/';

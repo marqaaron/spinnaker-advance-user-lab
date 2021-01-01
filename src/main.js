@@ -6,6 +6,9 @@ baseMain();
 
 import '@/customize-styles.scss';
 
+export const appConfig = window.__env;
+export const envConfig = process.env;
+
 // INITIALIZE ROUTER
 import VueRouter from 'vue-router';
 import {baseRoutes} from "@/core/routes/routes";
@@ -13,7 +16,7 @@ Vue.use(VueRouter);
 export const routes = baseRoutes;
 const router = new VueRouter({
   routes: routes,
-  base: (typeof process.env.VUE_APP_APP_PATH !== 'undefined') ? '/' + process.env.VUE_APP_APP_PATH + '/' : '/',
+  base: envConfig.BASE_URL,
   mode: 'history'
 });
 
