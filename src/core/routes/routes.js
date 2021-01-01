@@ -4,6 +4,7 @@ import NotFound from "@/core/routes/NotFound";
 import Authentication from "@/modules/authentication/Authentication";
 import ToolsView from "@/views/ToolsView";
 import ReferenceView from "@/views/ReferenceView";
+import AdminView from "@/views/AdminView";
 
 export const baseRoutes = [
     {
@@ -24,6 +25,20 @@ export const baseRoutes = [
         path: '/references/:activeContent?',
         name: 'viewReference',
         component: ReferenceView,
+        beforeEnter(to, from, next) {
+            if(store.getters.authenticationEnabled){
+                pullSaveUserDataFromLocalStorage();
+                enforceAuthentication(next);
+            } else {
+                removeUserDataFromLocalStorage();
+            }
+            next();
+        }
+    },
+    {
+        path: '/admin/:activeContent?',
+        name: 'viewAdmin',
+        component: AdminView,
         beforeEnter(to, from, next) {
             if(store.getters.authenticationEnabled){
                 pullSaveUserDataFromLocalStorage();
