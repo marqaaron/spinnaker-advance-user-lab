@@ -41,9 +41,8 @@ In order for SAUL to be able to authenticate with Spinnaker the following must b
     * Example:
         * Deck URL:  https://spinnaker.example.com
         * Gate URL:  https://spinnaker.example.com/api/v1
-4. SAUL must be deployed at a sub-directory of Spinnaker Deck.
-    * Example:
-        * SAUL URL:  https://spinnaker.example.com/saul
+4. SAUL must be deployed at a sub-directory of Spinnaker Deck which will be `/saul`
+    * Example SAUL URL:  https://spinnaker.example.com/saul
         
 NOTE: Given that all three services/applications are sharing a hostname, the Kubernetes ingress handling Spinnaker must
 also be modified to handle traffic for SAUL.  
@@ -94,7 +93,6 @@ deploy SAUL into a Spinnaker Kubernetes Cluster under one of two approaches:
     * Edit the `kustomization.yml` file
         * Namespace
         * ConfigMap Literal Values
-        * If hosting SAUL in a sub-directory other than `saul`, edit the `patch-deployment-readiness-probe-path.json` patch file
     * Deploy the manifests using Kustomize from within the `kustomize` directory
         ```
         kubectl apply -k .
@@ -107,14 +105,11 @@ application.  To date, the Nginx Ingress Controller is the only ingress method w
 in our development environment.  That said, other ingress capabilities should be able to be configured to achieve the 
 same result.
 
-If you are using the Nginx Ingress Controller, we have provided an example Ingress manifest located in the 
-[manifests/ingresses/nginx-ingress-controller](./manifests/ingress/nginx-ingress-controller) directory.  The ingress
-is configured to use the Kubernetes cert-manager to auto-generate SSL certificates so if you are not using cert-manager
+If you are using the Nginx Ingress Controller, we have provided two example Ingress manifests located in the 
+[manifests/ingresses/nginx-ingress-controller](./manifests/ingress/nginx-ingress-controller) directory.  The ingresses
+are configured to use the Kubernetes cert-manager to auto-generate SSL certificates so if you are not using cert-manager
 you will need to remove these sections.  You will also need to edit the example ingress to make sure domains and namespaces
 match your environment.
-
-When using the Nginx Ingress Controller, rules for a single domain must be contained inside of a single, ingress definition
-so you'll notice that our example Ingress manifest is for Deck, Gate, and SAUL.
 
 If you are not using the Nginx Ingress Controller, use the example Ingress Manifest as a reference to ensure your Ingress
 capability is configured properly to route traffic to the SAUL application.

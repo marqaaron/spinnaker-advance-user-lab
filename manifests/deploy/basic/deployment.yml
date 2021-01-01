@@ -28,6 +28,5 @@ spec:
             - containerPort: 8082
           readinessProbe:
             httpGet:
-              # Path: Set to the same app path as in ConfigMap but including a leading '/'
               path: /saul
               port: 8082

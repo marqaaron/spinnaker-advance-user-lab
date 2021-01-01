@@ -32,15 +32,13 @@ configMapGenerator:
     literals:
       # BASE_GATE_URL & BASE_DECK_URL: Must fully qualified domains with either 'http' or 'https' included **without** trailing '/'
       # BASE_GATE_URL: Must be on the same domain as Deck to allow authentication re-directs to sub-paths.
-      # APP_PATH: This is required since spinnaker-saul must also be on the same domain as Deck to leverage Spinnaker Authentication.
-      # APP_PATH: Sub-directory name **without** the leading '/'.
       - BASE_GATE_URL=https://spinnaker.example.com/api/v1
       - BASE_DECK_URL=https://spinnaker.example.com
-      - APP_PATH=saul
 
 images:
   - name: index.docker.io/marqaaron/spinnaker-saul
     # newTag: Deployment Manifest is set to the most recent image, but change the image tag to an alternate version as necessary
+    # SAUL Release: https://github.com/marqaaron/spinnaker-advanced-user-lab/releases
     newTag: latest
 
 resources:
@@ -49,13 +47,6 @@ resources:
   - ./resources/service.yml
 
 patches:
-  - target:
-      # REQUIRED. Set Patch 'value' to the same app path as in configMapGenerator above
-      # but including a leading '/'
-      # Default setting is '/saul' which aligns with the default 'APP_PATH' above
-      kind: Deployment
-      name: spinnaker-saul
-    path: patch-deployment-readiness-probe-path.json
   - target:
       # OPTIONAL. Set Patch 'value' to 'IfNotPresent' or 'Always'
       # Default settings is 'Always'
