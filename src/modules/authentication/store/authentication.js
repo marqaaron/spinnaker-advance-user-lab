@@ -3,14 +3,15 @@ import log from "@/core/utilities/log";
 import gateEndpoints from "@/modules/authentication/store/gateEndpoints";
 import {user} from "@/modules/authentication/store/mockData";
 
-const config = process.env;
+const envConfig = process.env;
+const appConfig = window.__env;
 
 export default {
     state: {
         isLoggedIn: false,
         invalidSessionAlertActive: false,
         details: null,
-        enabled: config.VUE_APP_AUTHENTICATION_ENABLED === 'true'
+        enabled: appConfig.AUTHENTICATION_ENABLED === true
     },
     getters: {
         isLoggedIn(state,getters,rootState) {
@@ -34,8 +35,8 @@ export default {
             context.commit("setInvalidSessionAlertActive",payload);
         },
         logIn({commit,getters},payload){
-            if(config.NODE_ENV !== 'development'){
-                window.open(gateEndpoints.loginRedirectUrl(process.env),'_self');
+            if(envConfig.NODE_ENV !== 'development'){
+                window.open(gateEndpoints.loginRedirectUrl(appConfig,envConfig),'_self');
             } else {
                 return new Promise( (resolve,reject) => {
                     log.text("Logging in locally");
@@ -49,10 +50,10 @@ export default {
         },
         requestUser({commit,getters},payload){
             return new Promise( (resolve,reject) => {
-                if(config.NODE_ENV !== 'development'){
-                    log.text("Requesting User from " + gateEndpoints.userDetailsUrl(config));
+                if(envConfig.NODE_ENV !== 'development'){
+                    log.text("Requesting User from " + gateEndpoints.userDetailsUrl(appConfig));
                     api.get(
-                        gateEndpoints.userDetailsUrl(config)
+                        gateEndpoints.userDetailsUrl(appConfig)
                     ).then(
                         (response) => {
                             log.text("User Details Request successful");
@@ -80,10 +81,10 @@ export default {
         },
         logout(context,payload){
             return new Promise((resolve,reject)=>{
-                if(config.NODE_ENV !== 'development'){
-                    log.text("Requesting Logout from " + gateEndpoints.logOutUrl(config));
+                if(envConfig.NODE_ENV !== 'development'){
+                    log.text("Requesting Logout from " + gateEndpoints.logOutUrl(appConfig));
                     api.get(
-                        gateEndpoints.logOutUrl(config)
+                        gateEndpoints.logOutUrl(appConfig)
                     ).then(
                         (response) => {
                             log.text("Logout Request successful");

@@ -57,6 +57,8 @@
 <script>
 import {mapGetters} from "vuex";
 import helpers from "@/core/utilities/helpers";
+import{envConfig} from "@/main";
+
 export default {
     name: "DocumentationListItem",
     props: {
@@ -91,7 +93,7 @@ export default {
             return helpers.highlightSearchMatch(_value,this.search)
         },
         onOpenDocumentation(_itemId){
-            let link = '/' + process.env.VUE_APP_APP_PATH + '/references/documentation?docId=' + _itemId ;
+            let link = '/' + envConfig.VUE_APP_PATH + '/references/documentation?docId=' + _itemId ;
             window.open(link,'_blank');
         }
     },

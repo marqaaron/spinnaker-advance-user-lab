@@ -49,14 +49,6 @@ spec:
               serviceName: spinnaker-saul
               servicePort: 80
             path: /(saul.*)
-          - backend:
-              serviceName: spin-gate
-              servicePort: 8084
-            path: /(api/v1.*)
-          - backend:
-              serviceName: spin-deck
-              servicePort: 9000
-            path: /(.*)
   tls:
     - hosts:
         # REQUIRED EDIT:  Change to your base deck/gate domain
