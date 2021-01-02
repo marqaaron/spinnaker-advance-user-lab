@@ -25,24 +25,13 @@ import alerts from "@/core/utilities/alerts";
 export default {
     data () {
         return {
-            message: 'Application Home Page.'
+
         }
     },
     created() {
         log.obj('Environment Config', envConfig);
         log.obj('App Config', appConfig);
-        this.windowWidth = window.innerWidth;
-        if(this.windowWidth < this.minBrowserWidth){
-            this.$store.dispatch('setActiveCover','displayTooSmall');
-        } else {
-            this.$store.dispatch('setActiveCover',null);
-        }
-        if(appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
-            this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
-        } else if(appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
-            this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
-        }
-        this.$store.dispatch('setWindowWidth',this.windowWidth);
+        this.onWindowResize();
         window.addEventListener("resize",this.onWindowResize);
         if(this.releasesAvailable){
             this.$store.dispatch('getReleases').then(
@@ -74,7 +63,11 @@ export default {
     },
     methods: {
         onWindowResize(e){
-            this.windowWidth = e.currentTarget.innerWidth;
+            if(e){
+                this.windowWidth = e.currentTarget.innerWidth;
+            } else {
+                this.windowWidth = window.innerWidth;
+            }
             if(this.windowWidth < this.displayTooSmallWatchBreakpoint){
                 if(this.windowWidth < this.minBrowserWidth){
                     this.$store.dispatch('setActiveCover','displayTooSmall')
