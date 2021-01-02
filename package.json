@@ -30,7 +30,7 @@
     "vue-spinners": "^1.0.2",
     "vue-sweetalert2": "^3.0.8",
     "vuelidate": "^0.7.6",
-    "vuex": "^3.5.1"
+    "vuex": "^3.6.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
