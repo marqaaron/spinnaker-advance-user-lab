@@ -131,6 +131,7 @@
     import ExpressionHelperPropertyValue from "@/modules/pipelineExpressionTester/components/currentTest/components/expressionHelpers/ExpressionHelperPropertyValue";
     import ExpressionHelperPropertyName from "@/modules/pipelineExpressionTester/components/currentTest/components/expressionHelpers/ExpressionHelperPropertyName";
     import DocumentationIconButton from "@/modules/documentation/components/DocumentationIconButton";
+    import log from "@/core/utilities/log";
     export default {
         name: "ExpressionEditor",
         data() {
@@ -230,9 +231,11 @@
                 this.$store.dispatch('evaluateExpression',{...this.expressionEvaluation}).then(
                     (result)=>{
                         if(!result && !this.invalidSessionAlertActive){
+                            log.obj('Vuex evaluateExpression Promise returned no result');
                             this.invalidSessionAlert();
                             this.requestingExpressionEvaluation = false;
                         } else {
+                            log.obj('Vuex evaluateExpression Promise returned',result);
                             this.$store.dispatch("setCurrentTestViewer","results");
                             this.$store.dispatch("setSelectedExecutionElementData",null);
                             this.requestingExpressionEvaluation = false;

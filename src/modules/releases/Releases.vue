@@ -36,11 +36,11 @@ export default {
     created() {
         if(this.releasesAvailable){
             this.$store.dispatch('getReleases').then(
-                (response)=>{
-                    log.obj('Vuex getReleases Promise returned',response);
+                (result)=>{
+                    log.obj('Vuex getReleases Promise returned',result);
                 },
-                (reject)=>{
-                    this.$swal(alerts.genericError(reject.title,reject.message));
+                (error)=>{
+                    this.$swal(alerts.endpointError(error));
                 }
             );
         }

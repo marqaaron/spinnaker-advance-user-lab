@@ -1,13 +1,13 @@
-const config = process.env;
+import {appConfig, envConfig} from "@/main";
 
 export default {
   text: function(_message){
-    if(config.NODE_ENV !== 'production'){
+    if(envConfig.NODE_ENV !== 'production' || appConfig.DEBUG_MODE){
       console.log(_message);
     }
   },
   obj: function(_title,_object){
-    if(config.NODE_ENV !== 'production'){
+    if(envConfig.NODE_ENV !== 'production' || appConfig.DEBUG_MODE){
       console.log(_title,_object);
     }
   }
