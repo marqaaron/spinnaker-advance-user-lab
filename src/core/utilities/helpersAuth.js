@@ -7,6 +7,14 @@ export const enforceAuthentication = function(_next){
   }
 }
 
+export const enforceRBACByRole = function(_next,_from,_role){
+  if(store.getters.currentUserRoles && _role !== false){
+    if(!store.getters.currentUserRoles.includes(_role)){
+      return _next(_from);
+    }
+  }
+}
+
 export const enforceAlreadyAuthenticated = function(_next){
   if(store.getters.isLoggedIn){
     return _next(store.getters.redirects.login);
