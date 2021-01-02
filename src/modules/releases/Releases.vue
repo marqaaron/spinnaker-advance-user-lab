@@ -4,11 +4,11 @@
             <b-col>
                 <p class="releases-header text-center">
                     <b-button variant="outline-secondary" size="sm" class="float-left" @click="openDockerRegistry()">
-                        <b-icon icon="box-arrow-up-right" aria-hidden="true" class="mr-2"></b-icon><span>Docker Registry</span>
+                        <b-icon icon="file-earmark-code" aria-hidden="true" class="mr-2"></b-icon><span>Image Registry</span>
                     </b-button>
                     SAUL Releases
                     <b-button variant="outline-secondary" size="sm" class="float-right" @click="openGithubRepo()">
-                        <b-icon icon="box-arrow-up-right" aria-hidden="true" class="mr-2"></b-icon><span>Github Repo</span>
+                        <b-icon icon="github" aria-hidden="true" class="mr-2"></b-icon><span>Repo</span>
                     </b-button>
                 </p>
                 <hr>
