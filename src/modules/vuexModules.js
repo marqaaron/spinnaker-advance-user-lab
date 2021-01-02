@@ -4,6 +4,7 @@ import MainMenuModule from "@/core/layout/components/mainMenu/store/mainMenu";
 import PipelineExpressionTesterModule from "@/modules/pipelineExpressionTester/store/pipelineExpressionTester";
 import DocumentationModule from "@/modules/documentation/store/documentation";
 import SharedModule from "@/modules/shared/store/shared";
+import ReleasesModule from "@/modules/releases/store/releases";
 
 export default {
   layout: LayoutModule,
@@ -11,5 +12,6 @@ export default {
   mainMenu: MainMenuModule,
   pipelineExpressionTester: PipelineExpressionTesterModule,
   documentation: DocumentationModule,
-  shared: SharedModule
+  shared: SharedModule,
+  releases: ReleasesModule
 }

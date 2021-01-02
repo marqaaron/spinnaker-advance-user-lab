@@ -55,5 +55,24 @@ export default [
         externalLink: true,
       }
     ]
+  },
+  {
+    name: 'admin',
+    headerText: 'Administration',
+    link: '/admin',
+    authRequired: true,
+    display: true,
+    hideAfterAuth: false,
+    externalLink: false,
+    listPosition: 4,
+    items: [
+      {
+        name: 'releases',
+        title: 'SAUL Releases',
+        link: '/admin/releases',
+        display: true,
+        externalLink: true,
+      }
+    ]
   }
 ]

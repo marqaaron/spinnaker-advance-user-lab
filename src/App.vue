@@ -20,6 +20,7 @@ import Documentation from "@/modules/documentation/Documentation";
 import {appConfig} from "@/main";
 import {envConfig} from "@/main";
 import log from "@/core/utilities/log";
+import alerts from "@/core/utilities/alerts";
 
 export default {
     data () {
@@ -43,6 +44,16 @@ export default {
         }
         this.$store.dispatch('setWindowWidth',this.windowWidth);
         window.addEventListener("resize",this.onWindowResize);
+        if(this.releasesAvailable){
+            this.$store.dispatch('getReleases').then(
+                (response)=>{
+                    log.obj('Vuex getReleases Promise returned',response);
+                },
+                (reject)=>{
+                    this.$swal(alerts.genericError(reject.title,reject.message));
+                }
+            );
+        }
     },
     components: {
         'nav-bar': Navbar,
@@ -57,7 +68,8 @@ export default {
             'pinMenu',
             'pinMenuBreakpoint',
             'mainContentAreaStyles',
-            'displayTooSmallWatchBreakpoint'
+            'displayTooSmallWatchBreakpoint',
+            'releasesAvailable'
         ])
     },
     methods: {
