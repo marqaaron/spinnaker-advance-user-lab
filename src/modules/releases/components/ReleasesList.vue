@@ -9,7 +9,7 @@
                 </b-col>
             </b-row>
         </div>
-        <placeholder v-else variant="info" message="No Releases to display In-App! Visit the Github Repo to review the releases."></placeholder>
+        <placeholder v-else variant="info" message="Unable to display releases in-app! Visit the Github Repo to review the releases."></placeholder>
     </div>
 </template>
 
