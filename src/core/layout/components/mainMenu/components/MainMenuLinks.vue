@@ -6,6 +6,14 @@
                     <router-link tag="div" :to="menu.link">
                         <div class="menu-text pointer"
                              :class="setClassesOnMenu(menu.name,index,menus.length)">
+                            <span
+                                title="Restricted Access"
+                                v-b-tooltip.hover
+                                v-if="menu.rbacRequired && displayRestricted(menu.name)">
+                                <b-icon-lock-fill
+                                    variant="success"
+                                ></b-icon-lock-fill>
+                            </span>
                             {{menu.headerText}}
                         </div>
                     </router-link>
@@ -41,6 +49,7 @@
 
 <script>
 import {mapGetters} from "vuex";
+import {appConfig} from "@/main";
 
 export default {
     data(){
@@ -74,6 +83,13 @@ export default {
         },
         goToLink(_link){
             window.open(_link,'_blank');
+        },
+        displayRestricted(_name){
+            if(_name === 'admin' && appConfig.RBAC_ROLE_ADMIN_VIEW){
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

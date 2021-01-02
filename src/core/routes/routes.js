@@ -1,5 +1,12 @@
-import {store} from "@/main";
-import {enforceAuthentication,pullSaveUserDataFromLocalStorage,enforceAlreadyAuthenticated,redirectToLoginLocation,removeUserDataFromLocalStorage} from "@/core/utilities/helpersAuth";
+import {appConfig, store} from "@/main";
+import {
+    enforceAuthentication,
+    pullSaveUserDataFromLocalStorage,
+    enforceAlreadyAuthenticated,
+    redirectToLoginLocation,
+    removeUserDataFromLocalStorage,
+    enforceRBACByRole
+} from "@/core/utilities/helpersAuth";
 import NotFound from "@/core/routes/NotFound";
 import Authentication from "@/modules/authentication/Authentication";
 import ToolsView from "@/views/ToolsView";
@@ -43,6 +50,7 @@ export const baseRoutes = [
             if(store.getters.authenticationEnabled){
                 pullSaveUserDataFromLocalStorage();
                 enforceAuthentication(next);
+                enforceRBACByRole(next,from,appConfig.RBAC_ROLE_ADMIN_VIEW);
             } else {
                 removeUserDataFromLocalStorage();
             }

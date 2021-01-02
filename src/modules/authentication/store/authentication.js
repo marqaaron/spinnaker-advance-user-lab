@@ -25,6 +25,13 @@ export default {
         },
         invalidSessionAlertActive(state,getters,rootState){
             return state.invalidSessionAlertActive;
+        },
+        currentUserRoles(state,getters,rootState){
+            if(state.details){
+                return state.details.roles;
+            } else {
+                return null;
+            }
         }
     },
     actions: {
