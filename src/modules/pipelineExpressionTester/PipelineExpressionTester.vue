@@ -27,14 +27,7 @@
             }
         },
         created() {
-            /*let activeContent;
-            if(typeof this.$route.params.activeContent != 'undefined'){
-                activeContent = this.$route.params.activeContent;
-            } else {
-                activeContent = this.defaultContent;
-            }*/
-            //this.$store.dispatch('setActiveMenu',this.activeMenu);
-            //this.$store.dispatch('setActiveContent',activeContent);
+
         },
         computed: {
             ...mapGetters([

@@ -1,6 +1,6 @@
 <template>
     <div class="padded-container" v-if="!isLoadingContent">
-        <placeholder variant="success" message="Admin View Coming Soon!"></placeholder>
+        <releases v-if="activeContent === 'releases'"></releases>
     </div>
     <div v-else>
         <loading-screen></loading-screen>
@@ -11,7 +11,7 @@
 import LoadingScreen from "@/core/layout/components/LoadingScreen";
 import {mapGetters} from "vuex";
 import helpers from "@/core/utilities/helpers";
-import Placeholder from "@/modules/shared/Placeholder";
+import Releases from "@/modules/releases/Releases";
 export default {
     name: "AdminView",
     data() {
@@ -52,7 +52,7 @@ export default {
     },
     components: {
         'loading-screen': LoadingScreen,
-        'placeholder': Placeholder
+        'releases': Releases
     },
     watch: {
         $route(){

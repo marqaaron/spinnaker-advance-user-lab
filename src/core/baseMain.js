@@ -19,7 +19,8 @@ import {
     faCaretRight,
     faCaretLeft,
     faEye,
-    faExternalLinkAlt
+    faExternalLinkAlt,
+    faTag,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VTooltip from 'v-tooltip';
@@ -44,7 +45,8 @@ export const baseMain = function(){
       faCaretRight,
       faExternalLinkAlt,
       faEye,
-      faCaretLeft);
+      faCaretLeft,
+      faTag);
   Vue.component('font-awesome-icon', FontAwesomeIcon);
   Vue.use(BootstrapVue);
   Vue.use(IconsPlugin);
