@@ -3,7 +3,9 @@
               class="nav-bar"
               :style="navBarStyles">
         <b-navbar-brand>
-            {{appName}} <b-badge variant="warning" size="xs" class="version-badge ml-3">{{ version }}</b-badge>
+            {{appName}}
+            <b-badge variant="warning" size="xs" class="version-badge ml-3">{{ version }}</b-badge>
+            <b-badge v-if="upgradeAvailable" variant="success" size="xs" class="version-badge ml-3">Upgrade Available</b-badge>
         </b-navbar-brand>
         <b-navbar-nav class="ml-auto text-right">
             <span class="mr-3 pointer nav-bar-pin-menu-icon"
@@ -40,6 +42,7 @@
 <script>
 import {mapGetters} from "vuex";
 import {appConfig} from "@/main";
+import helpers from "@/core/utilities/helpers";
 
 export default {
     data () {
@@ -58,10 +61,18 @@ export default {
             'pinMenuBreakpoint',
             'navBarStyles',
             'appName',
-            'standaloneDocumentation'
+            'standaloneDocumentation',
+            'releases'
         ]),
         version(){
             return appConfig.VERSION
+        },
+        upgradeAvailable() {
+            if(helpers.filterArrayByObjPropertyValue(this.releases,'tag_name',this.version).length > 0){
+                return this.releases[0].tag_name !== this.version;
+            } else {
+                return false;
+            }
         }
     },
     methods: {

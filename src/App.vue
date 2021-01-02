@@ -47,7 +47,7 @@ export default {
         if(this.releasesAvailable){
             this.$store.dispatch('getReleases').then(
                 (response)=>{
-                    log.obj('Releases',response);
+                    log.obj('Vuex getReleases Promise returned',response);
                 },
                 (reject)=>{
                     this.$swal(alerts.genericError(reject.title,reject.message));
