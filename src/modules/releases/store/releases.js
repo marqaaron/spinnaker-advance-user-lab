@@ -7,7 +7,8 @@ import api from "@/core/utilities/api";
 export default {
     state: {
         releases: [],
-        releasesAvailable: true
+        releasesAvailable: true,
+        releaseListGithubLink: 'https://api.github.com/repos/marqaaron/spinnaker-advanced-user-lab/releases'
     },
     getters: {
         releases(state){
@@ -15,6 +16,9 @@ export default {
         },
         releasesAvailable(state){
             return state.releasesAvailable;
+        },
+        releaseListGithubLink(state){
+            return state.releaseListGithubLink;
         }
     },
     actions: {
@@ -27,7 +31,7 @@ export default {
         getReleases({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
                 log.text("Requesting Releases");
-                api.get('https://api.github.com/repos/marqaaron/spinnaker-advanced-user-lab/releases').then(
+                api.get(getters.releaseListGithubLink).then(
                     (response)=>{
                         log.text("Releases successfully retrieved");
                         commit("setReleases",response.data);

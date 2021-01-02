@@ -3,9 +3,12 @@
         <b-row>
             <b-col>
                 <p class="releases-header text-center">
+                    <b-button variant="outline-secondary" size="sm" class="float-left" @click="openDockerRegistry()">
+                        <b-icon icon="box-arrow-up-right" aria-hidden="true" class="mr-2"></b-icon><span>Docker Registry</span>
+                    </b-button>
                     SAUL Releases
                     <b-button variant="outline-secondary" size="sm" class="float-right" @click="openGithubRepo()">
-                        <b-icon icon="box-arrow-up-right" aria-hidden="true" class="mr-2"></b-icon><span>View at Github</span>
+                        <b-icon icon="box-arrow-up-right" aria-hidden="true" class="mr-2"></b-icon><span>Github Repo</span>
                     </b-button>
                 </p>
                 <hr>
@@ -51,6 +54,9 @@ export default {
     methods: {
         openGithubRepo(){
             window.open('https://github.com/marqaaron/spinnaker-advanced-user-lab/releases','_blank');
+        },
+        openDockerRegistry(){
+            window.open('https://hub.docker.com/r/marqaaron/spinnaker-saul','_blank');
         }
     },
     components: {
