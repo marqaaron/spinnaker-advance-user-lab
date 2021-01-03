@@ -36,6 +36,7 @@ export default {
         markdownContainerClasses(){
             return {
                 'markdown-container': true,
+                'markdown-container-standalone': this.standaloneDocumentation,
                 'markdown-container-33': (this.documentationSliderWidth === '33%' && this.standaloneDocumentation === false),
                 'markdown-container-50': (this.documentationSliderWidth === '50%' && this.standaloneDocumentation === false),
                 'markdown-container-100': (this.documentationSliderWidth === '100%' && this.standaloneDocumentation === false)
@@ -61,31 +62,31 @@ export default {
 }
 
 @media only screen and (min-width: 1601px) {
-    .markdown-container img{
+    .markdown-container-standalone img{
         width: 25%;
     }
 }
 
 @media only screen and (max-width: 1600px) {
-    .markdown-container img{
+    .markdown-container-standalone img{
         width: 35%;
     }
 }
 
 @media only screen and (max-width: 1400px) {
-    .markdown-container img{
+    .markdown-container-standalone img{
         width: 45%;
     }
 }
 
 @media only screen and (max-width: 1200px) {
-    .markdown-container img{
+    .markdown-container-standalone img{
         width: 55%;
     }
 }
 
 @media only screen and (max-width: 1000px) {
-    .markdown-container img{
+    .markdown-container-standalone img{
         width: 65%;
     }
 }
@@ -136,6 +137,13 @@ export default {
     color: #c7254e;
     background-color: #f9f2f4;
     border-radius: 4px;
+}
+
+pre > code {
+    background-color: #ececec !important;
+    padding: 10px !important;
+    display: block;
+    color: black !important;
 }
 
 .markdown-container li > p {
