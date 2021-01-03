@@ -14,9 +14,14 @@ SAUL can be configured to enforce RBAC on the Administrator View using a **singl
 
 ![RBAC Administrator View Menu Item Display](${rbacAdminViewMenuItemImageLink})
 
+## Spinnaker Requirements
+
+In order to enable RBAC in SAUL, Authorization (i.e. RBAC via Fiat) but be configured in Spinnaker to work in concert with Authentication through Gate.  Ensure you have Spinnaker configured properly prior to configuring SAUL.
+* <a href="https://spinnaker.io/setup/security/authorization/" target="_blank">Spinnaker.io Authorization Guide</a>
+
 ## Configure RBAC on the Administrator View
 
-To enable the RBAC, add the following property to your ConfigMap substituting your desired admin role in place of the default text \`spin-admin\` and redeploy SAUL:
+To enable RBAC, add the following property to your ConfigMap substituting your desired admin role in place of the default text \`spin-admin\` and redeploy SAUL:
 
 \`\`\`
 RBAC_ROLE_ADMIN_VIEW: 'spin-admin'
