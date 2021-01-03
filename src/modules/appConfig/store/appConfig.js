@@ -11,7 +11,6 @@ export default {
     },
     actions: {
         setAppConfig(context,payload){
-            log.obj('App Config',payload);
             context.commit("setAppConfig",payload);
         }
     },
