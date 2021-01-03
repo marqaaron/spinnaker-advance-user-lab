@@ -63,7 +63,7 @@ export default {
 
 @media only screen and (min-width: 1601px) {
     .markdown-container-standalone img{
-        width: 25%;
+        width: 35%;
     }
 }
 
