@@ -11,7 +11,7 @@
                                 v-b-tooltip.hover
                                 v-if="menu.rbacRequired && displayRestricted(menu.name)">
                                 <b-icon-lock-fill
-                                    variant="success"
+                                    style="color: #ff3737"
                                 ></b-icon-lock-fill>
                             </span>
                             {{menu.headerText}}

@@ -3,13 +3,15 @@
         <b-row>
             <b-col>
                 <p class="releases-header text-center">
-                    <b-button variant="outline-secondary" size="sm" class="float-left" @click="openDockerRegistry()">
-                        <b-icon icon="file-earmark-code" aria-hidden="true" class="mr-2"></b-icon><span>Image Registry</span>
-                    </b-button>
                     SAUL Releases
-                    <b-button variant="outline-secondary" size="sm" class="float-right" @click="openGithubRepo()">
-                        <b-icon icon="github" aria-hidden="true" class="mr-2"></b-icon><span>Repo</span>
-                    </b-button>
+                    <b-button-group class="float-right">
+                        <b-button variant="outline-secondary" size="sm" @click="openDockerRegistry()">
+                            <b-icon icon="file-earmark-code" aria-hidden="true" class="mr-2"></b-icon><span>Images</span>
+                        </b-button>
+                        <b-button variant="outline-secondary" size="sm" @click="openGithubRepo()">
+                            <b-icon icon="github" aria-hidden="true" class="mr-2"></b-icon><span>Repo</span>
+                        </b-button>
+                    </b-button-group>
                 </p>
                 <hr>
             </b-col>
