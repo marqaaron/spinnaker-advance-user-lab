@@ -14,7 +14,9 @@ export default {
     },
     mutations: {
         setPaginationContainerWidth(state,payload){
-            state.paginationContainerWidth = document.querySelector('.pagination-container').clientWidth;
+            if(document.querySelector('.pagination-container') !== null){
+                state.paginationContainerWidth = document.querySelector('.pagination-container').clientWidth;
+            }
         }
     }
 }
