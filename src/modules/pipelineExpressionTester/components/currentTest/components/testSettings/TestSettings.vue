@@ -106,6 +106,7 @@
     import alerts from "@/core/utilities/alerts";
     import helpers from "@/core/utilities/helpers";
     import DocumentationIconButton from "@/modules/documentation/components/DocumentationIconButton";
+    import log from "@/core/utilities/log";
     export default {
         name: "TestSettings",
         data() {
@@ -235,9 +236,11 @@
                 this.$store.dispatch('getApplicationPipelineConfigs',_applicationName).then(
                     (result) => {
                         if(!result && !this.invalidSessionAlertActive){
+                            log.obj('Vuex getApplicationPipelineConfigs Promise returned no result');
                             this.invalidSessionAlert();
                             this.pipelineConfigsLoading = false;
                         } else {
+                            log.obj('Vuex getApplicationPipelineConfigs Promise returned',result);
                             this.pipelineConfigsLoading = false;
                         }
                     },
@@ -252,9 +255,11 @@
                 this.$store.dispatch('getApplicationPipelineExecutions',_applicationName).then(
                     (result) => {
                         if(!result && !this.invalidSessionAlertActive){
+                            log.obj('Vuex getApplicationPipelineExecutions Promise returned no result');
                             this.invalidSessionAlert();
                             this.pipelineExecutionsLoading = false;
                         } else {
+                            log.obj('Vuex getApplicationPipelineExecutions Promise returned',result);
                             this.pipelineExecutionsLoading = false;
                         }
                     },

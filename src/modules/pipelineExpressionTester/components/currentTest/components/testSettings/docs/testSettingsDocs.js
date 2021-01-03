@@ -13,6 +13,10 @@ In order for PETE to successfully test a pipeline expression, a Pipeline Executi
 
 > **NOTE:** The Applications listed in this drop-down are limited to only those for which the current user has at least READ access to in Spinnaker.
 
+::: warning
+> **WARNING:** Pipeline Executions listed in the Executions Dropdown are _limited to the 10 most recent executions_.
+:::
+
 The Application and Pipeline drop-down lists are both sorted alphabetically while the Execution dropdown list is sorted by execution date in descending order (i.e. most recent at the top).
 
 Each item in the Execution drop-down list displays the execution date as a 'time since now' and the Pipeline Execution ID.

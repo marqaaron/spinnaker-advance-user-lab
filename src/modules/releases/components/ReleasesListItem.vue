@@ -26,7 +26,7 @@
                     <b-col cols="12">
                         <p>
                             <img :src="item.author.avatar_url" :alt="item.author.login" class="avatar mr-2">
-                            <span><span class="bold">{{item.author.login}}</span> released this {{releaseDateFromNow}}</span>
+                            <span><span class="bold">{{item.author.login}}</span> released this <span class="release-date" :title="releaseDate" v-b-tooltip.hover>{{releaseDateFromNow}}</span></span>
                         </p>
                     </b-col>
                 </b-row>
@@ -72,7 +72,6 @@
 import {mapGetters} from "vuex";
 import helpers from "@/core/utilities/helpers";
 import ReleaseBodyMarkdownViewer from "@/modules/releases/components/ReleaseBodyMarkdownViewer";
-import {appConfig} from "@/main";
 
 export default {
     name: "ReleaseListItem",
@@ -94,13 +93,16 @@ export default {
     },
     computed: {
         ...mapGetters([
-
+            'appConfig'
         ]),
         releaseDateFromNow(){
             return helpers.toMomentFromNow(this.item.published_at);
         },
         currentVersion(){
-            return appConfig.VERSION;
+            return this.appConfig.VERSION;
+        },
+        releaseDate(){
+            return helpers.toMoment(this.item.published_at,'MM/DD/YYYY h:mm a Z')
         }
     },
     methods: {
@@ -118,10 +120,16 @@ export default {
     background-color: initial;
 }
 
-.avatar{
+.avatar {
     width: 20px;
     height: 20px;
     border-radius:50%;
+}
+
+.release-date {
+    background-color: #ececec;
+    padding: 1px 4px;
+    border-radius: 3px;
 }
 
 </style>

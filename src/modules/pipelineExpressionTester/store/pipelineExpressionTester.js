@@ -2,7 +2,6 @@ import api from "@/core/utilities/api";
 import log from "@/core/utilities/log";
 import {applications,applicationPipelineConfigs,applicationPipelineExecutions, successfulResults, failureResults} from "./mockData";
 import gateEndpoints from "@/modules/pipelineExpressionTester/store/gateEndpoints";
-import {appConfig} from "@/main";
 import {envConfig} from "@/main";
 
 export default {
@@ -78,7 +77,7 @@ export default {
             return new Promise ((resolve,reject)=>{
                 if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Applications");
-                    api.get(gateEndpoints.applicationsUrl(appConfig)).then(
+                    api.get(gateEndpoints.applicationsUrl(getters.appConfig)).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Applications successfully retrieved");
@@ -106,7 +105,7 @@ export default {
             return new Promise ((resolve,reject)=>{
                 if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Pipeline Configs");
-                    api.get(gateEndpoints.pipelineConfigsUrl(appConfig,payload)).then(
+                    api.get(gateEndpoints.pipelineConfigsUrl(getters.appConfig,payload)).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Pipeline Configs successfully retrieved");
@@ -134,7 +133,7 @@ export default {
             return new Promise ((resolve,reject)=>{
                 if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Pipeline Executions");
-                    api.get(gateEndpoints.pipelineExecutionsUrl(appConfig,payload)).then(
+                    api.get(gateEndpoints.pipelineExecutionsUrl(getters.appConfig,payload)).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Pipeline Executions successfully retrieved");
@@ -169,7 +168,7 @@ export default {
                             'Content-type': 'text/plain'
                         }
                     };
-                    api.post(gateEndpoints.evaluateExpressionUrl(appConfig,payload.pipelineId),requestExpression,requestConfig).then(
+                    api.post(gateEndpoints.evaluateExpressionUrl(getters.appConfig,payload.pipelineId),requestExpression,requestConfig).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Evaluate Expression successfully retrieved");

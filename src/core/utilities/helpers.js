@@ -47,7 +47,7 @@ export default {
     if (dateString.length === 14 && dateString.match(/^[0-9]+$/)) {
       return moment((new Date(dateString.substring(0, 4), dateString.substring(5, 6), dateString.substring(7, 8), dateString.substring(9, 10), dateString.substring(11, 12), dateString.substring(13, 14)))).format(format).replace('Invalid date', '');
     } else {
-      return moment(dateString).zoneName('US/Pacific').format(format).replace('Invalid date', '');
+      return moment(dateString).format(format);
     }
   },
   toMomentFromNow(dateString){
@@ -60,7 +60,7 @@ export default {
   },
   toMomentLocal(dateString,format){
     if (!dateString || !dateString.length) return '';
-    return moment.zoneName(dateString, Intl.DateTimeFormat().resolvedOptions().timeZone).format(format).replace('Invalid date', '');
+    return moment(dateString).local().format(format);
   },
   setListItemsForPage: function(_list,_page,_perPage){
     let startPosition =  (_page - 1) * _perPage;

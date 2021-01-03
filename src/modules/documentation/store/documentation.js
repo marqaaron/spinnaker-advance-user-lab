@@ -5,9 +5,8 @@ import {executionContextViewerFeatureOverview} from "@/modules/pipelineExpressio
 import {expressionSyntaxHelperFeatureOverview} from "@/modules/pipelineExpressionTester/components/currentTest/components/expressionHelpers/docs/expressionHelpersDocs";
 import {expressionResultsViewerFeatureOverview} from "@/modules/pipelineExpressionTester/components/currentTest/components/resultsViewer/docs/resultsViewerDocs";
 import {testHistoryFeatureOverview} from "@/modules/pipelineExpressionTester/components/testHistory/components/docs/testHistoryDocs";
-
-import {appConfig} from "@/main";
-import {envConfig} from "@/main";
+import {configuringRBACOnAdminView} from "@/modules/appConfig/docs/appConfigRBACGuides";
+import {configuringDebugMode} from "@/modules/appConfig/docs/appConfigDebugModeGuide";
 
 export default {
     state: {
@@ -58,6 +57,20 @@ export default {
                 summary: "Details on how to use the Test History feature of the Pipeline Expression Test Environment",
                 categories: 'docs',
                 markdown: testHistoryFeatureOverview
+            },
+            {
+                id: 'configuring-rbac-on-admin-view',
+                title: 'SAUL Configuration: Role-based Access Control (RBAC) on the Administrator View',
+                summary: "Details on how to configure SAUL to apply role-based access control on the Administrator View",
+                categories: 'guide|config',
+                markdown: configuringRBACOnAdminView
+            },
+            {
+                id: 'configuring-debug-mode-production-builds',
+                title: 'SAUL Configuration: Enabling Debug Mode in Production Builds',
+                summary: "Details on how to configure SAUL to enable Debug Mode in Production Builds",
+                categories: 'guide|config',
+                markdown: configuringDebugMode
             }
         ]
     },

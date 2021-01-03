@@ -15,11 +15,11 @@ export default {
         },
         missingBaseGateUrlEnvVariable: {
             mainMessage: "We're sorry, but it looks like you did not include the BASE_GATE_URL environment variable",
-            subMessage: "Redeploy the container with the BASE_GATE_URL environment variable."
+            subMessage: "Redeploy the container with the BASE_GATE_URL environment variable in your ConfigMap."
         },
         missingBaseDeckUrlEnvVariable: {
             mainMessage: "We're sorry, but it looks like you did not include the BASE_DECK_URL environment variable",
-            subMessage: "Redeploy the container with the BASE_DECK_URL environment variable."
+            subMessage: "Redeploy the container with the BASE_DECK_URL environment variable in your ConfigMap."
         }
     },
 }

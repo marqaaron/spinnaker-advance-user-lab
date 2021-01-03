@@ -6,4 +6,5 @@
     window.__env.VERSION = "" ? "" : "local" ;
     window.__env.AUTHENTICATION_ENABLED = true ;
     window.__env.RBAC_ROLE_ADMIN_VIEW = "" ? "" : false;
+    window.__env.DEBUG_MODE = "" === 'true';
 }(this));

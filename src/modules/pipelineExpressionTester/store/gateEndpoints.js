@@ -1,6 +1,3 @@
-import {store} from "@/main";
-import alerts from "@/core/utilities/alerts";
-
 export default {
     applicationsUrl(_appConfig){
         let baseGateUrl = _appConfig.BASE_GATE_URL;

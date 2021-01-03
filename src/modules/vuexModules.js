@@ -5,6 +5,7 @@ import PipelineExpressionTesterModule from "@/modules/pipelineExpressionTester/s
 import DocumentationModule from "@/modules/documentation/store/documentation";
 import SharedModule from "@/modules/shared/store/shared";
 import ReleasesModule from "@/modules/releases/store/releases";
+import AppConfigModule from "@/modules/appConfig/store/appConfig";
 
 export default {
   layout: LayoutModule,
@@ -13,5 +14,6 @@ export default {
   pipelineExpressionTester: PipelineExpressionTesterModule,
   documentation: DocumentationModule,
   shared: SharedModule,
-  releases: ReleasesModule
+  releases: ReleasesModule,
+  appConfig: AppConfigModule
 }

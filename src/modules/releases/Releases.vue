@@ -3,13 +3,15 @@
         <b-row>
             <b-col>
                 <p class="releases-header text-center">
-                    <b-button variant="outline-secondary" size="sm" class="float-left" @click="openDockerRegistry()">
-                        <b-icon icon="box-arrow-up-right" aria-hidden="true" class="mr-2"></b-icon><span>Docker Registry</span>
-                    </b-button>
                     SAUL Releases
-                    <b-button variant="outline-secondary" size="sm" class="float-right" @click="openGithubRepo()">
-                        <b-icon icon="box-arrow-up-right" aria-hidden="true" class="mr-2"></b-icon><span>Github Repo</span>
-                    </b-button>
+                    <b-button-group class="float-right">
+                        <b-button variant="outline-secondary" size="sm" @click="openDockerRegistry()">
+                            <b-icon icon="file-earmark-code" aria-hidden="true" class="mr-2"></b-icon><span>Images</span>
+                        </b-button>
+                        <b-button variant="outline-secondary" size="sm" @click="openGithubRepo()">
+                            <b-icon icon="github" aria-hidden="true" class="mr-2"></b-icon><span>Repo</span>
+                        </b-button>
+                    </b-button-group>
                 </p>
                 <hr>
             </b-col>
@@ -36,11 +38,11 @@ export default {
     created() {
         if(this.releasesAvailable){
             this.$store.dispatch('getReleases').then(
-                (response)=>{
-                    log.obj('Vuex getReleases Promise returned',response);
+                (result)=>{
+                    log.obj('Vuex getReleases Promise returned',result);
                 },
-                (reject)=>{
-                    this.$swal(alerts.genericError(reject.title,reject.message));
+                (error)=>{
+                    this.$swal(alerts.endpointError(error));
                 }
             );
         }

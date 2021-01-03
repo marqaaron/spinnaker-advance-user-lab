@@ -1,4 +1,4 @@
-import {appConfig, store} from "@/main";
+import {store} from "@/main";
 import {
     enforceAuthentication,
     pullSaveUserDataFromLocalStorage,
@@ -19,7 +19,7 @@ export const baseRoutes = [
         name: 'viewTools',
         component: ToolsView,
         beforeEnter(to, from, next) {
-            if(store.getters.authenticationEnabled){
+            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
                 pullSaveUserDataFromLocalStorage();
                 enforceAuthentication(next);
             } else {
@@ -33,7 +33,7 @@ export const baseRoutes = [
         name: 'viewReference',
         component: ReferenceView,
         beforeEnter(to, from, next) {
-            if(store.getters.authenticationEnabled){
+            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
                 pullSaveUserDataFromLocalStorage();
                 enforceAuthentication(next);
             } else {
@@ -47,10 +47,10 @@ export const baseRoutes = [
         name: 'viewAdmin',
         component: AdminView,
         beforeEnter(to, from, next) {
-            if(store.getters.authenticationEnabled){
+            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
                 pullSaveUserDataFromLocalStorage();
                 enforceAuthentication(next);
-                enforceRBACByRole(next,from,appConfig.RBAC_ROLE_ADMIN_VIEW);
+                enforceRBACByRole(next,from,store.getters.appConfig.RBAC_ROLE_ADMIN_VIEW);
             } else {
                 removeUserDataFromLocalStorage();
             }
@@ -62,7 +62,7 @@ export const baseRoutes = [
         name: 'viewLogin',
         component: Authentication,
         beforeEnter(to, from, next) {
-            if(store.getters.authenticationEnabled){
+            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
                 pullSaveUserDataFromLocalStorage();
                 if(store.getters.isLoggedIn){
                     return next(store.getters.redirects.login);
@@ -95,7 +95,7 @@ export const baseRoutes = [
         path: '*',
         component: NotFound,
         beforeEnter(to, from, next) {
-            if(store.getters.authenticationEnabled){
+            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
                 pullSaveUserDataFromLocalStorage();
                 enforceAlreadyAuthenticated(next);
                 enforceAuthentication(next);

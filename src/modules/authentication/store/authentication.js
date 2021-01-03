@@ -2,16 +2,13 @@ import api from "@/core/utilities/api";
 import log from "@/core/utilities/log";
 import gateEndpoints from "@/modules/authentication/store/gateEndpoints";
 import {user} from "@/modules/authentication/store/mockData";
-
-const envConfig = process.env;
-const appConfig = window.__env;
+import {envConfig} from "@/main";
 
 export default {
     state: {
         isLoggedIn: false,
         invalidSessionAlertActive: false,
         details: null,
-        enabled: appConfig.AUTHENTICATION_ENABLED === true
     },
     getters: {
         isLoggedIn(state,getters,rootState) {
@@ -19,9 +16,6 @@ export default {
         },
         details(state,getters,rootState){
             return state.details;
-        },
-        authenticationEnabled(state,getters,rootState){
-            return state.enabled;
         },
         invalidSessionAlertActive(state,getters,rootState){
             return state.invalidSessionAlertActive;
@@ -43,7 +37,7 @@ export default {
         },
         logIn({commit,getters},payload){
             if(envConfig.NODE_ENV !== 'development'){
-                window.open(gateEndpoints.loginRedirectUrl(appConfig,envConfig),'_self');
+                window.open(gateEndpoints.loginRedirectUrl(getters.appConfig,envConfig),'_self');
             } else {
                 return new Promise( (resolve,reject) => {
                     log.text("Logging in locally");
@@ -58,9 +52,9 @@ export default {
         requestUser({commit,getters},payload){
             return new Promise( (resolve,reject) => {
                 if(envConfig.NODE_ENV !== 'development'){
-                    log.text("Requesting User from " + gateEndpoints.userDetailsUrl(appConfig));
+                    log.text("Requesting User from " + gateEndpoints.userDetailsUrl(getters.appConfig));
                     api.get(
-                        gateEndpoints.userDetailsUrl(appConfig)
+                        gateEndpoints.userDetailsUrl(getters.appConfig)
                     ).then(
                         (response) => {
                             log.text("User Details Request successful");
@@ -89,9 +83,9 @@ export default {
         logout(context,payload){
             return new Promise((resolve,reject)=>{
                 if(envConfig.NODE_ENV !== 'development'){
-                    log.text("Requesting Logout from " + gateEndpoints.logOutUrl(appConfig));
+                    log.text("Requesting Logout from " + gateEndpoints.logOutUrl(getters.appConfig));
                     api.get(
-                        gateEndpoints.logOutUrl(appConfig)
+                        gateEndpoints.logOutUrl(getters.appConfig)
                     ).then(
                         (response) => {
                             log.text("Logout Request successful");

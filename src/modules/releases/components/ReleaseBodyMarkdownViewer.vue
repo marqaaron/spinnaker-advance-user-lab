@@ -33,7 +33,7 @@ export default {
         ]),
         markdownContainerClasses(){
             return {
-                'markdown-container': true,
+                'release-markdown-container': true,
             }
         },
     },
@@ -48,7 +48,7 @@ export default {
 
 <style>
 
-.markdown-container img{
+.release-markdown-container img{
     display: block;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -56,48 +56,48 @@ export default {
 }
 
 @media only screen and (min-width: 1601px) {
-    .markdown-container img{
+    .release-markdown-container img{
         width: 25%;
     }
 }
 
 @media only screen and (max-width: 1600px) {
-    .markdown-container img{
+    .release-markdown-container img{
         width: 35%;
     }
 }
 
 @media only screen and (max-width: 1400px) {
-    .markdown-container img{
+    .release-markdown-container img{
         width: 45%;
     }
 }
 
 @media only screen and (max-width: 1200px) {
-    .markdown-container img{
+    .release-markdown-container img{
         width: 55%;
     }
 }
 
 @media only screen and (max-width: 1000px) {
-    .markdown-container img{
+    .release-markdown-container img{
         width: 65%;
     }
 }
 
-.markdown-container blockquote {
+.release-markdown-container blockquote {
     padding: 10px 20px;
     margin: 0 0 20px;
     border-left: 5px solid #eee;
 }
 
-.markdown-container .warning blockquote {
+.release-markdown-container .warning blockquote {
     padding: 10px 20px;
     margin: 0 0 20px;
     border-left: 5px solid #e27777;
 }
 
-.markdown-container code {
+.release-markdown-container code {
     padding: 2px 4px;
     font-size: 90%;
     color: #c7254e;
@@ -105,26 +105,26 @@ export default {
     border-radius: 4px;
 }
 
-.markdown-container li > p {
+.release-markdown-container li > p {
     margin-bottom: 0;
     margin-top: 5px;
 }
 
-.markdown-container strong {
+.release-markdown-container strong {
     font-weight: bold;
 }
 
-.markdown-container h1 {
+.release-markdown-container h1 {
     font-size: 2.0rem;
     font-weight: bold;
 }
 
-.markdown-container h2 {
+.release-markdown-container h2 {
     font-size: 1.8rem;
     font-weight: bold;
 }
 
-.markdown-container h3 {
+.release-markdown-container h3 {
     font-size: 1.6rem;
     font-weight: bold;
 }

@@ -17,7 +17,6 @@ import MainMenu from "@/core/layout/components/mainMenu/MainMenu";
 import Cover from "@/core/layout/components/Cover";
 import {mapGetters} from "vuex";
 import Documentation from "@/modules/documentation/Documentation";
-import {appConfig} from "@/main";
 import {envConfig} from "@/main";
 import log from "@/core/utilities/log";
 import alerts from "@/core/utilities/alerts";
@@ -25,32 +24,21 @@ import alerts from "@/core/utilities/alerts";
 export default {
     data () {
         return {
-            message: 'Application Home Page.'
+
         }
     },
     created() {
         log.obj('Environment Config', envConfig);
-        log.obj('App Config', appConfig);
-        this.windowWidth = window.innerWidth;
-        if(this.windowWidth < this.minBrowserWidth){
-            this.$store.dispatch('setActiveCover','displayTooSmall');
-        } else {
-            this.$store.dispatch('setActiveCover',null);
-        }
-        if(appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
-            this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
-        } else if(appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
-            this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
-        }
-        this.$store.dispatch('setWindowWidth',this.windowWidth);
+        log.obj('App Config', this.appConfig);
+        this.onWindowResize();
         window.addEventListener("resize",this.onWindowResize);
         if(this.releasesAvailable){
             this.$store.dispatch('getReleases').then(
-                (response)=>{
-                    log.obj('Vuex getReleases Promise returned',response);
+                (result)=>{
+                    log.obj('Vuex getReleases Promise returned',result);
                 },
-                (reject)=>{
-                    this.$swal(alerts.genericError(reject.title,reject.message));
+                (error)=>{
+                    this.$swal(alerts.endpointError(error));
                 }
             );
         }
@@ -69,21 +57,26 @@ export default {
             'pinMenuBreakpoint',
             'mainContentAreaStyles',
             'displayTooSmallWatchBreakpoint',
-            'releasesAvailable'
+            'releasesAvailable',
+            'appConfig'
         ])
     },
     methods: {
         onWindowResize(e){
-            this.windowWidth = e.currentTarget.innerWidth;
+            if(e){
+                this.windowWidth = e.currentTarget.innerWidth;
+            } else {
+                this.windowWidth = window.innerWidth;
+            }
             if(this.windowWidth < this.displayTooSmallWatchBreakpoint){
                 if(this.windowWidth < this.minBrowserWidth){
                     this.$store.dispatch('setActiveCover','displayTooSmall')
                 } else {
                     this.$store.dispatch('setActiveCover',null);
                 }
-                if(appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
+                if(this.appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
                     this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
-                } else if(appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
+                } else if(this.appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
                     this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
                 }
             }
