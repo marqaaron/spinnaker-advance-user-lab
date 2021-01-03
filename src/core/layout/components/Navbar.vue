@@ -41,7 +41,6 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {appConfig} from "@/main";
 import helpers from "@/core/utilities/helpers";
 
 export default {
@@ -62,10 +61,11 @@ export default {
             'navBarStyles',
             'appName',
             'standaloneDocumentation',
-            'releases'
+            'releases',
+            'appConfig'
         ]),
         version(){
-            return appConfig.VERSION
+            return this.appConfig.VERSION
         },
         upgradeAvailable() {
             if(helpers.filterArrayByObjPropertyValue(this.releases,'tag_name',this.version).length > 0){

@@ -17,7 +17,6 @@ import MainMenu from "@/core/layout/components/mainMenu/MainMenu";
 import Cover from "@/core/layout/components/Cover";
 import {mapGetters} from "vuex";
 import Documentation from "@/modules/documentation/Documentation";
-import {appConfig} from "@/main";
 import {envConfig} from "@/main";
 import log from "@/core/utilities/log";
 import alerts from "@/core/utilities/alerts";
@@ -30,7 +29,6 @@ export default {
     },
     created() {
         log.obj('Environment Config', envConfig);
-        log.obj('App Config', appConfig);
         this.onWindowResize();
         window.addEventListener("resize",this.onWindowResize);
         if(this.releasesAvailable){
@@ -58,7 +56,8 @@ export default {
             'pinMenuBreakpoint',
             'mainContentAreaStyles',
             'displayTooSmallWatchBreakpoint',
-            'releasesAvailable'
+            'releasesAvailable',
+            'appConfig'
         ])
     },
     methods: {
@@ -74,9 +73,9 @@ export default {
                 } else {
                     this.$store.dispatch('setActiveCover',null);
                 }
-                if(appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
+                if(this.appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
                     this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
-                } else if(appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
+                } else if(this.appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
                     this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
                 }
             }

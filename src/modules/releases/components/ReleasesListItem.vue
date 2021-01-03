@@ -72,7 +72,6 @@
 import {mapGetters} from "vuex";
 import helpers from "@/core/utilities/helpers";
 import ReleaseBodyMarkdownViewer from "@/modules/releases/components/ReleaseBodyMarkdownViewer";
-import {appConfig} from "@/main";
 
 export default {
     name: "ReleaseListItem",
@@ -94,13 +93,13 @@ export default {
     },
     computed: {
         ...mapGetters([
-
+            'appConfig'
         ]),
         releaseDateFromNow(){
             return helpers.toMomentFromNow(this.item.published_at);
         },
         currentVersion(){
-            return appConfig.VERSION;
+            return this.appConfig.VERSION;
         }
     },
     methods: {

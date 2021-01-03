@@ -6,9 +6,6 @@ import {expressionSyntaxHelperFeatureOverview} from "@/modules/pipelineExpressio
 import {expressionResultsViewerFeatureOverview} from "@/modules/pipelineExpressionTester/components/currentTest/components/resultsViewer/docs/resultsViewerDocs";
 import {testHistoryFeatureOverview} from "@/modules/pipelineExpressionTester/components/testHistory/components/docs/testHistoryDocs";
 
-import {appConfig} from "@/main";
-import {envConfig} from "@/main";
-
 export default {
     state: {
         documentationVisible: false,

@@ -4,10 +4,30 @@ import Vue from 'vue';
 import {baseMain} from "@/core/baseMain";
 baseMain();
 
+// IMPORT CUSTOM SCSS STYLING
 import '@/customize-styles.scss';
 
-export const appConfig = window.__env;
+// INITIALIZE VUEX STORE AND MODULES
+import Vuex from 'vuex';
+import vuexModules from "@/modules/vuexModules";
+Vue.use(Vuex);
+const vuexConfig = {
+  modules: vuexModules,
+  state: {}
+}
+
+// EXPORT STORE
+export const store = new Vuex.Store(vuexConfig);
+
+// EXPORT ENVIRONMENT CONFIG
 export const envConfig = process.env;
+
+// SET APP CONFIG IN STORE
+store.dispatch('setAppConfig',{...window.__env});
+
+// CLEAR INITIAL APP CONFIG INJECTOR
+window.__env = null;
+
 
 // INITIALIZE ROUTER
 import VueRouter from 'vue-router';
@@ -19,18 +39,6 @@ const router = new VueRouter({
   base: envConfig.BASE_URL,
   mode: 'history'
 });
-
-
-// INITIALIZE VUEX STORE AND MODULES
-import Vuex from 'vuex';
-import vuexModules from "@/modules/vuexModules";
-Vue.use(Vuex);
-const vuexConfig = {
-  modules: vuexModules,
-  state: {}
-}
-export const store = new Vuex.Store(vuexConfig);
-
 
 // INITIALIZE APP
 import App from '@/App.vue';

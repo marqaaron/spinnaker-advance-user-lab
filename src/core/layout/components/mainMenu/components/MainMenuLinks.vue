@@ -49,7 +49,6 @@
 
 <script>
 import {mapGetters} from "vuex";
-import {appConfig} from "@/main";
 
 export default {
     data(){
@@ -65,7 +64,8 @@ export default {
             'menus',
             'isLoggedIn',
             'pinMenu',
-            'authenticationEnabled'
+            'authenticationEnabled',
+            'appConfig'
         ])
     },
     methods: {
@@ -85,7 +85,7 @@ export default {
             window.open(_link,'_blank');
         },
         displayRestricted(_name){
-            if(_name === 'admin' && appConfig.RBAC_ROLE_ADMIN_VIEW){
+            if(_name === 'admin' && this.appConfig.RBAC_ROLE_ADMIN_VIEW){
                 return true;
             } else {
                 return false;
