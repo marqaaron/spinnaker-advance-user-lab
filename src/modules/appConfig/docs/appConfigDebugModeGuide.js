@@ -5,7 +5,7 @@ export const configuringDebugMode =
 
 ---
 
-As defined by the manifests distributed in the code repository, SAUL is not configured to configured to be in Debug Mode in production.  Much of SAUL's code base contains console.log messages visible in the console of a browser's Developer Tools when working with the code locally when the Vue application is considered to be in a non-production environment.  An example of the messages is displayed below.
+As defined by the manifests distributed in the code repository, SAUL is not configured to be in Debug Mode in production.  Much of SAUL's code base contains console.log messages visible in the console of a browser's Developer Tools when working with the code locally since the Vue application is considered to be in a non-production environment.  An example of the messages is displayed below.
 
 ![Example Debug Mode Output](${debugModeExampleOutput})
 
