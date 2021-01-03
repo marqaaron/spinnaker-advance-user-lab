@@ -18,6 +18,7 @@ SAUL can be configured to enforce RBAC on the Administrator View using a **singl
 
 In order to enable RBAC in SAUL, Authorization (i.e. RBAC via Fiat) but be configured in Spinnaker to work in concert with Authentication through Gate.  Ensure you have Spinnaker configured properly prior to configuring SAUL.
 * <a href="https://spinnaker.io/setup/security/authorization/" target="_blank">Spinnaker.io Authorization Guide</a>
+* <a href="https://docs.armory.io/docs/installation/operator-reference/security/" target="_blank">Armory Spinnaker Operator: Security Reference</a>
 
 ## Configure RBAC on the Administrator View
 
