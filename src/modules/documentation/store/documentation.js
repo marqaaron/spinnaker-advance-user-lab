@@ -6,6 +6,7 @@ import {expressionSyntaxHelperFeatureOverview} from "@/modules/pipelineExpressio
 import {expressionResultsViewerFeatureOverview} from "@/modules/pipelineExpressionTester/components/currentTest/components/resultsViewer/docs/resultsViewerDocs";
 import {testHistoryFeatureOverview} from "@/modules/pipelineExpressionTester/components/testHistory/components/docs/testHistoryDocs";
 import {configuringRBACOnAdminView} from "@/modules/appConfig/docs/appConfigRBACGuides";
+import {configuringDebugMode} from "@/modules/appConfig/docs/appConfigDebugModeGuide";
 
 export default {
     state: {
@@ -63,6 +64,13 @@ export default {
                 summary: "Details on how to configure SAUL to apply role-based access control on the Administrator View",
                 categories: 'guide|config',
                 markdown: configuringRBACOnAdminView
+            },
+            {
+                id: 'configuring-debug-mode-production-builds',
+                title: 'SAUL Configuration: Enabling Debug Mode in Production Builds',
+                summary: "Details on how to configure SAUL to enable Debug Mode in Production Builds",
+                categories: 'guide|config',
+                markdown: configuringDebugMode
             }
         ]
     },
