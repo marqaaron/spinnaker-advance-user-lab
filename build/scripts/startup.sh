@@ -40,7 +40,7 @@ cat > /var/www/html/saul/env.js << EOF
   window.__env.VERSION = "${VERSION}" ? "${VERSION}" : "none" ;
   window.__env.AUTHENTICATION_ENABLED = true ;
   window.__env.RBAC_ROLE_ADMIN_VIEW = "${RBAC_ROLE_ADMIN_VIEW}" ? "${RBAC_ROLE_ADMIN_VIEW}" : false;
-  window.__env.DEBUG_MODE = "${DEBUG_MODE}" ? "${DEBUG_MODE}" : false;
+  window.__env.DEBUG_MODE = "${DEBUG_MODE}" === 'true';
 }(this));
 EOF
 
