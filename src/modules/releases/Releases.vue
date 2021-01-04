@@ -46,11 +46,23 @@ export default {
                 }
             );
         }
+        if(this.imagesAvailable){
+            this.$store.dispatch('getImages').then(
+                (result)=>{
+                    log.obj('Vuex getImages Promise returned',result);
+                },
+                (error)=>{
+                    this.$swal(alerts.endpointError(error));
+                }
+            );
+        }
     },
     computed: {
         ...mapGetters([
             'releases',
-            'releasesAvailable'
+            'releasesAvailable',
+            'images',
+            'imagesAvailable'
         ])
     },
     methods: {
