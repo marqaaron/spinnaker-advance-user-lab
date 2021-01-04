@@ -131,10 +131,13 @@ export default {
     confirmSessionInvalid: function(){
         return {
             title: 'Your Session has Expired!',
-            text: 'Please ensure logout and log back in.',
+            text: 'Would you like to refresh your login now?',
             icon: 'warning',
             reverseButtons: true,
-            confirmButtonText: 'Ok'
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No'
         }
     },
 }

@@ -218,6 +218,7 @@
                     (result)=>{
                         if(result.isConfirmed){
                             this.$store.dispatch('setInvalidSessionAlertActive',false);
+                            this.$store.dispatch('logIn');
                         } else {
                             this.$store.dispatch('setInvalidSessionAlertActive',false);
                         }
