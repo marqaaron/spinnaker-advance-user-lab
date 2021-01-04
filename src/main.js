@@ -7,6 +7,9 @@ baseMain();
 // IMPORT CUSTOM SCSS STYLING
 import '@/customize-styles.scss';
 
+// EXPORT ENVIRONMENT CONFIG
+export const envConfig = process.env;
+
 // INITIALIZE VUEX STORE AND MODULES
 import Vuex from 'vuex';
 import vuexModules from "@/modules/vuexModules";
@@ -18,9 +21,6 @@ const vuexConfig = {
 
 // EXPORT STORE
 export const store = new Vuex.Store(vuexConfig);
-
-// EXPORT ENVIRONMENT CONFIG
-export const envConfig = process.env;
 
 // SET APP CONFIG IN STORE
 store.dispatch('setAppConfig',{...window.__env});

@@ -11,7 +11,7 @@
             <span class="mr-3 pointer nav-bar-pin-menu-icon"
                   style="margin:auto"
                   title="Documentation"
-                  v-if="!standaloneDocumentation"
+                  v-if="!standaloneDocumentation && isLoggedIn"
                   v-b-toggle.documentationSidebar
                   v-b-tooltip.hover>
                 <font-awesome-icon icon="question-circle"
@@ -62,7 +62,8 @@ export default {
             'appName',
             'standaloneDocumentation',
             'releases',
-            'appConfig'
+            'appConfig',
+            'isLoggedIn'
         ]),
         version(){
             return this.appConfig.VERSION
