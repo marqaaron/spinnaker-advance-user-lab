@@ -81,7 +81,7 @@ export default {
 
             })
         },
-        logout(context,payload){
+        logout({commit,getters},payload){
             return new Promise((resolve,reject)=>{
                 if(envConfig.NODE_ENV !== 'development'){
                     log.text("Requesting Logout from " + gateEndpoints.logOutUrl(getters.appConfig));
@@ -90,20 +90,20 @@ export default {
                     ).then(
                         (response) => {
                             log.text("Logout Request successful");
-                            context.commit("setUserDetails",false);
-                            context.commit("toggleIsLoggedIn",false);
+                            commit("setUserDetails",false);
+                            commit("toggleIsLoggedIn",false);
                             resolve(true);
                         },
                         (error) => {
-                            log.obj("Login Request Error",error);
+                            log.obj("Logout Request Error",error);
                             reject(api.error(error));
                         }
                     );
                 } else {
                     log.text("Logging out locally");
                     setTimeout(()=>{
-                        context.commit("setUserDetails",false);
-                        context.commit("toggleIsLoggedIn",false);
+                        commit("setUserDetails",false);
+                        commit("toggleIsLoggedIn",false);
                         resolve(true);
                     },1000);
                 }
