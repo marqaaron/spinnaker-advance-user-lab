@@ -6,7 +6,7 @@
                     SAUL Releases
                     <b-button-group class="float-right">
                         <b-button variant="outline-secondary" size="sm" @click="openDockerRegistry()">
-                            <b-icon icon="file-earmark-code" aria-hidden="true" class="mr-2"></b-icon><span>Images</span>
+                            <b-icon icon="box" aria-hidden="true" class="mr-2"></b-icon><span>Images</span>
                         </b-button>
                         <b-button variant="outline-secondary" size="sm" @click="openGithubRepo()">
                             <b-icon icon="github" aria-hidden="true" class="mr-2"></b-icon><span>Repo</span>
