@@ -2,7 +2,8 @@ import api from "@/core/utilities/api";
 import log from "@/core/utilities/log";
 import gateEndpoints from "@/modules/authentication/store/gateEndpoints";
 import {user} from "@/modules/authentication/store/mockData";
-import {envConfig} from "@/main";
+
+const envConfig = process.env;
 
 export default {
     state: {
