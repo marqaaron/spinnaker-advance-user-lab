@@ -211,9 +211,11 @@
                 this.$store.dispatch('getApplications').then(
                     (result) => {
                         if(!result && !this.invalidSessionAlertActive){
+                            log.obj('Vuex getApplications Promise returned no result');
                             this.invalidSessionAlert();
                             this.applicationsLoading = false;
                         } else {
+                            log.obj('Vuex getApplications Promise returned',result);
                             this.applicationsLoading = false;
                         }
                     },
