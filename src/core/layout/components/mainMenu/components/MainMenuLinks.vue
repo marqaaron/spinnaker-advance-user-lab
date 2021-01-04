@@ -64,9 +64,11 @@ export default {
             'menus',
             'isLoggedIn',
             'pinMenu',
-            'authenticationEnabled',
             'appConfig'
-        ])
+        ]),
+        authenticationEnabled(){
+            return this.appConfig.AUTHENTICATION_ENABLED;
+        }
     },
     methods: {
         setClassesOnMenu(name,index,arrayLength){
