@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div v-if="contentLoaded">
         <b-row>
             <b-col>
                 <p class="releases-header text-center">
                     SAUL Releases
                     <b-button-group class="float-right">
                         <b-button variant="outline-secondary" size="sm" @click="openDockerRegistry()">
-                            <b-icon icon="file-earmark-code" aria-hidden="true" class="mr-2"></b-icon><span>Images</span>
+                            <b-icon icon="box" aria-hidden="true" class="mr-2"></b-icon><span>Images</span>
                         </b-button>
                         <b-button variant="outline-secondary" size="sm" @click="openGithubRepo()">
                             <b-icon icon="github" aria-hidden="true" class="mr-2"></b-icon><span>Repo</span>
@@ -18,6 +18,9 @@
         </b-row>
         <releases-list></releases-list>
     </div>
+    <div v-else style="height:100%;width:100%;margin:auto">
+        <loading-screen ></loading-screen>
+    </div>
 </template>
 
 <script>
@@ -25,6 +28,8 @@ import {mapGetters} from "vuex";
 import log from "@/core/utilities/log";
 import alerts from "@/core/utilities/alerts";
 import ReleasesList from "@/modules/releases/components/ReleasesList";
+import LoadingScreen from "@/core/layout/components/LoadingScreen";
+
 export default {
     name: "Releases",
     props: {
@@ -32,25 +37,49 @@ export default {
     },
     data() {
         return {
-
+            contentLoaded: false
         }
     },
     created() {
+        this.emitContentLoaded();
         if(this.releasesAvailable){
             this.$store.dispatch('getReleases').then(
                 (result)=>{
                     log.obj('Vuex getReleases Promise returned',result);
+                    if(this.imagesAvailable){
+                        this.$store.dispatch('getImages').then(
+                            (result)=>{
+                                log.obj('Vuex getImages Promise returned',result);
+                                this.onContentLoaded();
+                            },
+                            (error)=>{
+                                this.onContentLoaded();
+                                this.$swal(alerts.endpointError(error));
+                            }
+                        );
+                    } else {
+                        setTimeout(()=>{
+                            this.onContentLoaded();
+                        }, 1000)
+                    }
                 },
                 (error)=>{
+                    this.onContentLoaded();
                     this.$swal(alerts.endpointError(error));
                 }
             );
+        } else {
+            setTimeout(()=>{
+                this.onContentLoaded();
+            }, 1000)
         }
     },
     computed: {
         ...mapGetters([
             'releases',
-            'releasesAvailable'
+            'releasesAvailable',
+            'images',
+            'imagesAvailable'
         ])
     },
     methods: {
@@ -59,10 +88,18 @@ export default {
         },
         openDockerRegistry(){
             window.open('https://hub.docker.com/r/marqaaron/spinnaker-saul','_blank');
+        },
+        onContentLoaded(){
+            this.contentLoaded = true;
+            this.emitContentLoaded()
+        },
+        emitContentLoaded(){
+            this.$emit('contentLoaded',this.contentLoaded);
         }
     },
     components: {
-        'releases-list': ReleasesList
+        'releases-list': ReleasesList,
+        'loading-screen': LoadingScreen
     }
 }
 </script>

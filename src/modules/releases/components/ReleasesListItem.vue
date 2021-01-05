@@ -1,20 +1,23 @@
 <template>
     <b-list-group-item class="list-group-item">
         <b-row>
-            <b-col cols="3" class="summary-content">
+            <b-col cols="4" class="summary-content">
                 <b-row>
-                    <b-col cols="12" v-if="index === 0">
-                        <b-badge variant="success" size="sm">Latest</b-badge>
-                    </b-col>
                     <b-col cols="12">
                         <b-icon-tag></b-icon-tag> {{item.tag_name}}
+                    </b-col>
+                    <b-col cols="12" v-if="index === 0">
+                        <b-badge variant="success" size="sm">Latest</b-badge>
                     </b-col>
                     <b-col cols="12" v-if="item.tag_name === currentVersion">
                         <b-badge variant="danger" size="sm">Currently Deployed</b-badge>
                     </b-col>
+                    <b-col cols="12" v-if="imagesAvailable" class="mt-4">
+                        <release-image-details :details="item.imageDetails"></release-image-details>
+                    </b-col>
                 </b-row>
             </b-col>
-            <b-col cols="9" class="main-content">
+            <b-col cols="8" class="main-content">
                 <b-row>
                     <b-col cols="12">
                         <h4>
@@ -72,6 +75,7 @@
 import {mapGetters} from "vuex";
 import helpers from "@/core/utilities/helpers";
 import ReleaseBodyMarkdownViewer from "@/modules/releases/components/ReleaseBodyMarkdownViewer";
+import ReleaseImageDetails from "@/modules/releases/components/ReleaseImageDetails";
 
 export default {
     name: "ReleaseListItem",
@@ -93,7 +97,8 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'appConfig'
+            'appConfig',
+            'imagesAvailable'
         ]),
         releaseDateFromNow(){
             return helpers.toMomentFromNow(this.item.published_at);
@@ -109,7 +114,8 @@ export default {
 
     },
     components: {
-        'release-markdown-viewer': ReleaseBodyMarkdownViewer
+        'release-markdown-viewer': ReleaseBodyMarkdownViewer,
+        'release-image-details': ReleaseImageDetails
     }
 }
 </script>

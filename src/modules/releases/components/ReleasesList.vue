@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="list-container" v-if="releases.length > 0">
+        <div class="list-container" v-if="displayableReleases.length > 0">
             <b-row>
                 <b-col>
                     <b-list-group>
-                        <list-item v-for="(item,index) in releases" :item="item" :key="item.id" :index="index"></list-item>
+                        <list-item v-for="(item,index) in displayableReleases" :item="item" :key="item.id" :index="index"></list-item>
                     </b-list-group>
                 </b-col>
             </b-row>
@@ -17,6 +17,7 @@
 import {mapGetters} from "vuex";
 import ReleasesListItem from "@/modules/releases/components/ReleasesListItem";
 import Placeholder from "@/modules/shared/Placeholder";
+
 export default {
     name: "ReleasesList",
     data() {
@@ -30,6 +31,7 @@ export default {
     computed: {
         ...mapGetters([
             'releases',
+            'displayableReleases'
         ])
     },
     methods: {
