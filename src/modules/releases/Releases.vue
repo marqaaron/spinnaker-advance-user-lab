@@ -40,16 +40,16 @@ export default {
             this.$store.dispatch('getReleases').then(
                 (result)=>{
                     log.obj('Vuex getReleases Promise returned',result);
-                },
-                (error)=>{
-                    this.$swal(alerts.endpointError(error));
-                }
-            );
-        }
-        if(this.imagesAvailable){
-            this.$store.dispatch('getImages').then(
-                (result)=>{
-                    log.obj('Vuex getImages Promise returned',result);
+                    if(this.imagesAvailable){
+                        this.$store.dispatch('getImages').then(
+                            (result)=>{
+                                log.obj('Vuex getImages Promise returned',result);
+                            },
+                            (error)=>{
+                                this.$swal(alerts.endpointError(error));
+                            }
+                        );
+                    }
                 },
                 (error)=>{
                     this.$swal(alerts.endpointError(error));

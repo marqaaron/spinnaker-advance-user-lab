@@ -3,6 +3,34 @@ import api from "@/core/utilities/api";
 import {envConfig} from "@/main";
 import {images} from "@/modules/releases/store/mockData";
 
+const enrichReleasesWithImages = function(_releases,_images){
+    let i,j;
+    let releases = [..._releases];
+    let images = [..._images];
+    for (i = 0; i < releases.length; i++) {
+        releases[i]["imageAvailable"] = false;
+        releases[i]["imageDetails"] = {};
+        let imageName = releases[i]["tag_name"].replace('v','');
+        for(j = 0; j < images.length; j++){
+            if(imageName === images[j]["name"]){
+                releases[i]["imageAvailable"] = true;
+                releases[i]["imageDetails"]["name"] = images[j]["name"];
+                releases[i]["imageDetails"]["last_updated"] = images[j]["last_updated"];
+                releases[i]["imageDetails"]["last_tag_pushed"] = images[j]["tag_last_pushed"];
+                releases[i]["imageDetails"]["last_updater_username"] = images[j]["last_updater_username"];
+                releases[i]["imageDetails"]["digest"] = images[j]["images"][0]["digest"];
+                releases[i]["imageDetails"]["short_digest"] = releases[i]["imageDetails"]["digest"].substring(7,19);
+                releases[i]["imageDetails"]["os"] = images[j]["images"][0]["os"];
+                releases[i]["imageDetails"]["architecture"] = images[j]["images"][0]["architecture"];
+                releases[i]["imageDetails"]["full_size_mb"] = (images[j]["full_size"] / 1000000).toPrecision(4);
+                releases[i]["imageDetails"]["status"] = images[j]["images"][0]["status"];
+                releases[i]["imageDetails"]["url"] = "https://hub.docker.com/layers/marqaaron/spinnaker-saul/" + releases[i]["imageDetails"]["name"] + "/images/" + releases[i]["imageDetails"]["digest"].replace(":","-");
+            }
+        }
+    }
+    return releases;
+}
+
 export default {
     state: {
         releases: [],
@@ -74,6 +102,8 @@ export default {
                         (response)=>{
                             log.text("Images successfully retrieved");
                             commit("setImages",response.data.results);
+                            let enrichedReleases = enrichReleasesWithImages(getters.releases,response.data.results);
+                            commit("setReleases",enrichedReleases);
                             resolve(true);
                         },
                         (error)=>{
@@ -84,8 +114,10 @@ export default {
                     )
                 } else {
                     log.text("Setting Images to MockData");
-                    commit("setImages",getters.imagesMockData);
                     setTimeout(()=>{
+                        commit("setImages",getters.imagesMockData);
+                        let enrichedReleases = enrichReleasesWithImages(getters.releases,getters.imagesMockData);
+                        commit("setReleases",enrichedReleases);
                         resolve(true);
                     },1000);
                 }
