@@ -2,6 +2,7 @@ import log from "@/core/utilities/log";
 import api from "@/core/utilities/api";
 import {envConfig} from "@/main";
 import {images} from "@/modules/releases/store/mockData";
+import helpers from "@/core/utilities/helpers";
 
 const enrichReleasesWithImages = function(_releases,_images){
     let i,j;
@@ -62,6 +63,13 @@ export default {
         },
         imagesMockData(state){
             return state.imagesMockData;
+        },
+        displayableReleases(state,getters){
+            if(getters.imagesAvailable){
+                return helpers.filterArrayByObjPropertyValue(getters.releases,'imageAvailable',true);
+            } else {
+                return state.releases;
+            }
         }
     },
     actions: {

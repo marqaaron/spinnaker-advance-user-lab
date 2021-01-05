@@ -61,7 +61,7 @@ export default {
             'navBarStyles',
             'appName',
             'standaloneDocumentation',
-            'releases',
+            'displayableReleases',
             'appConfig',
             'isLoggedIn'
         ]),
@@ -69,8 +69,8 @@ export default {
             return this.appConfig.VERSION
         },
         upgradeAvailable() {
-            if(helpers.filterArrayByObjPropertyValue(this.releases,'tag_name',this.version).length > 0){
-                return this.releases[0].tag_name !== this.version;
+            if(helpers.filterArrayByObjPropertyValue(this.displayableReleases,'tag_name',this.version).length > 0){
+                return this.displayableReleases[0].tag_name !== this.version;
             } else {
                 return false;
             }

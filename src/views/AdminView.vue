@@ -1,6 +1,6 @@
 <template>
-    <div class="padded-container" v-if="!isLoadingContent">
-        <releases v-if="activeContent === 'releases'"></releases>
+    <div :class="containerClasses" v-if="!isLoadingContent">
+        <releases v-if="activeContent === 'releases'" @contentLoaded="onContentLoaded($event)"></releases>
     </div>
     <div v-else>
         <loading-screen></loading-screen>
@@ -20,7 +20,8 @@ export default {
             defaultContent: 'releases',
             availableContent: [
                 'releases'
-            ]
+            ],
+            subContentLoading: false
         }
     },
     created() {
@@ -30,7 +31,12 @@ export default {
         ...mapGetters([
             'isLoadingContent',
             'activeContent'
-        ])
+        ]),
+        containerClasses(){
+            return {
+                "padded-container": !this.subContentLoading
+            }
+        }
     },
     methods: {
         setActiveContent(){
@@ -48,6 +54,9 @@ export default {
             } else {
                 this.$router.replace('/' + this.activeMenu + '/' + this.defaultContent);
             }
+        },
+        onContentLoaded(event){
+            this.subContentLoading = !event;
         }
     },
     components: {

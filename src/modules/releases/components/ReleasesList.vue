@@ -17,7 +17,7 @@
 import {mapGetters} from "vuex";
 import ReleasesListItem from "@/modules/releases/components/ReleasesListItem";
 import Placeholder from "@/modules/shared/Placeholder";
-import helpers from "@/core/utilities/helpers";
+
 export default {
     name: "ReleasesList",
     data() {
@@ -31,15 +31,8 @@ export default {
     computed: {
         ...mapGetters([
             'releases',
-            'imagesAvailable'
-        ]),
-        displayableReleases(){
-            if(this.imagesAvailable){
-                return helpers.filterArrayByObjPropertyValue(this.releases,'imageAvailable',true);
-            } else {
-                return this.releases;
-            }
-        }
+            'displayableReleases'
+        ])
     },
     methods: {
 
