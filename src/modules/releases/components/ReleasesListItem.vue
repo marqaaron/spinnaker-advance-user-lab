@@ -3,11 +3,11 @@
         <b-row>
             <b-col cols="3" class="summary-content">
                 <b-row>
-                    <b-col cols="12" v-if="index === 0">
-                        <b-badge variant="success" size="sm">Latest</b-badge>
-                    </b-col>
                     <b-col cols="12">
                         <b-icon-tag></b-icon-tag> {{item.tag_name}}
+                    </b-col>
+                    <b-col cols="12" v-if="index === 0">
+                        <b-badge variant="success" size="sm">Latest</b-badge>
                     </b-col>
                     <b-col cols="12" v-if="item.tag_name === currentVersion">
                         <b-badge variant="danger" size="sm">Currently Deployed</b-badge>
