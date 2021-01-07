@@ -1,16 +1,9 @@
 #!/bin/bash
 
-echo '
+echo "--------- Nginx Server Startup Logs -----------"
 
-  ____       _      _   _   _
- / ___|     / \    | | | | | |
- \___ \    / _ \   | | | | | |
-  ___) |  / ___ \  | |_| | | |___
- |____/  /_/   \_\  \___/  |_____|
-
-                                '
-
-echo "--------- Startup Logs -----------"
+echo "Exporting VERSION from file"
+export VERSION=$(cat /env/version)
 
 echo "Making /var/log/nginx directory"
 mkdir -p /var/log/nginx
@@ -22,14 +15,11 @@ echo "Making /var/www/html/saul directory"
 mkdir -p /var/www/html/saul
 
 echo "Moving Nginx Config files"
-mv /app/build/nginx_config/nginx.conf /etc/nginx/nginx.conf
-mv /app/build/nginx_config/default.conf /etc/nginx/conf.d/default.conf
-
-echo "Exporting VERSION from file"
-export VERSION=$(cat /app/build/scripts/version)
+mv /system/servers/nginx/nginx_config/nginx.conf /etc/nginx/nginx.conf
+mv /system/servers/nginx/nginx_config/default.conf /etc/nginx/conf.d/default.conf
 
 echo "Moving build files from /app/dist to /var/www/html/saul"
-mv /app/dist/* /var/www/html/saul
+mv /system/app/dist/* /var/www/html/saul
 
 echo "Overwriting env.js"
 cat > /var/www/html/saul/env.js << EOF

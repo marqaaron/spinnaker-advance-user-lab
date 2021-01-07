@@ -10,8 +10,9 @@ need to install run the following command from within the project root directory
 
 ```
 # Be sure to install node and npm on your machine prior to running this command
+# Warning: Do not use npm install as this will modify the package-lock.json
 
-npm install
+npm ci
 ```
 
 Once all the node_modules are installed successfully, run the following command from within the project root directory 
