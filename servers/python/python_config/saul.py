@@ -11,14 +11,14 @@ from flask import Flask, jsonify, request, redirect
 ### GLOBALS ###
 app = Flask(__name__)
 
-@app.route('/api-saul/releases/images', methods=['GET'])
+@app.route('/saul-api/releases/images', methods=['GET'])
 def images():
     data = requests.get('https://hub.docker.com/v2/repositories/marqaaron/spinnaker-saul/tags/')
     response = {}
     response['result'] = data.json()
     return jsonify(response)
 
-@app.route('/api-saul/releases/versions', methods=['GET'])
+@app.route('/saul-api/releases/versions', methods=['GET'])
 def versions():
     data = requests.get('https://api.github.com/repos/marqaaron/spinnaker-advanced-user-lab/releases')
     response = {}
@@ -33,6 +33,8 @@ def catch_all_saul(path):
         return app.send_static_file(path)
     elif 'js/' in path:
         return app.send_static_file(path)
+    elif 'img/' in path:
+            return app.send_static_file(path)
     elif 'env.js' in path:
         return app.send_static_file(path)
     elif 'favicon' in path:
