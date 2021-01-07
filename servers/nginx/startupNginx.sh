@@ -15,11 +15,11 @@ echo "Making /var/www/html/saul directory"
 mkdir -p /var/www/html/saul
 
 echo "Moving Nginx Config files"
-mv /system/servers/nginx/nginx_config/nginx.conf /etc/nginx/nginx.conf
-mv /system/servers/nginx/nginx_config/default.conf /etc/nginx/conf.d/default.conf
+mv /servers/nginx/nginx_config/nginx.conf /etc/nginx/nginx.conf
+mv /servers/nginx/nginx_config/default.conf /etc/nginx/conf.d/default.conf
 
 echo "Moving build files from /app/dist to /var/www/html/saul"
-mv /system/app/dist/* /var/www/html/saul
+mv /ui/app/dist/* /var/www/html/saul
 
 echo "Overwriting env.js"
 cat > /var/www/html/saul/env.js << EOF

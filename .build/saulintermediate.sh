@@ -6,7 +6,7 @@ echo "Installing required packages"
 apk add --no-cache git nodejs npm
 
 echo "Moving into /app directory"
-cd /system/app
+cd /ui/app
 
 echo "Removing existing node_modules if it exists"
 
@@ -20,9 +20,3 @@ npm run build
 
 echo "Removing node_modules"
 rm -rf node_modules
-
-echo "Changing Directory to /servers"
-cd /system/servers
-
-echo "Changing startup.sh file to executable"
-chmod +x startup.sh
