@@ -38,7 +38,7 @@ export default {
         releasesAvailable: true,
         releaseListGithubLink: 'https://api.github.com/repos/marqaaron/spinnaker-advanced-user-lab/releases',
         images: [],
-        imagesAvailable: true,
+        imagesAvailable: false,
         imageListDockerLink: 'https://hub.docker.com/v2/repositories/marqaaron/spinnaker-saul/tags/',
         imagesMockData: images
     },

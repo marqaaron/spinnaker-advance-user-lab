@@ -10,7 +10,7 @@ WORKDIR /app
 COPY /build ./build
 COPY --from=baseimage /version ./build/scripts
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
 RUN npm run build && rm -rf /app/node_modules
 RUN ["chmod", "+x", "./build/scripts/startup.sh"]
