@@ -62,7 +62,7 @@ def main():
 
     # Set debug_mode variable based on environment variable at deployment
     if 'SERVER_DEBUG_MODE' in environ:
-        debug_mode = True if environ['SERVER_DEBUG_MODE'] == 'enabled' else False
+        debug_mode = True if environ['SERVER_DEBUG_MODE'] == 'true' else False
     else:
         debug_mode = False
 
