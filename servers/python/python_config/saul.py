@@ -15,14 +15,14 @@ app = Flask(__name__)
 def images():
     data = requests.get('https://hub.docker.com/v2/repositories/marqaaron/spinnaker-saul/tags/')
     response = {}
-    response['result'] = data.json()
+    response['saul_data'] = data.json()
     return jsonify(response)
 
 @app.route('/saul-api/releases/versions', methods=['GET'])
 def versions():
     data = requests.get('https://api.github.com/repos/marqaaron/spinnaker-advanced-user-lab/releases')
     response = {}
-    response['result'] = data.json()
+    response['saul_data'] = data.json()
     return jsonify(response)
 
 @app.route('/saul/', defaults={'path': ''})
@@ -34,7 +34,7 @@ def catch_all_saul(path):
     elif 'js/' in path:
         return app.send_static_file(path)
     elif 'img/' in path:
-            return app.send_static_file(path)
+        return app.send_static_file(path)
     elif 'env.js' in path:
         return app.send_static_file(path)
     elif 'favicon' in path:
@@ -60,9 +60,15 @@ def main():
         level=logging.DEBUG
     )
 
+    # Set debug_mode variable based on environment variable at deployment
+    if 'SERVER_DEBUG_MODE' in environ:
+        debug_mode = True if environ['SERVER_DEBUG_MODE'] == 'enabled' else False
+    else:
+        debug_mode = False
+
     # Do stuff
     # Figure out the Kube Proxy thing
-    app.run(host='0.0.0.0', port=8082)
+    app.run(host='0.0.0.0', port=8082, debug=debug_mode)
 
 if __name__ == "__main__":
     main()
