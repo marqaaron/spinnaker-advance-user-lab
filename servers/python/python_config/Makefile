@@ -38,6 +38,7 @@ help:
 	@echo "Make Commands:"
 	@echo "build-local (Builds Docker Image locally for development)"
 	@echo "run-local (Runs Docker Image locally for development)"
+	@echo "run-local-mount (Runs Docker Image locally with python_config directory mounted for development)"
 
 
 build-local:
@@ -48,6 +49,18 @@ build-local:
 	.
 
 run-local:
+	docker run -it -p ${localPort}:8082 \
+    --env SERVER_DEBUG_MODE=${serverDebug} \
+    --env DEBUG_MODE=${appDebug} \
+    --env BASE_GATE_URL=${baseGateUrl} \
+    --env BASE_DECK_URL=${baseDeckUrl} \
+    --env AUTHENTICATION_ENABLED=${authenticationEnabled} \
+    --env RBAC_ROLE_ADMIN_VIEW=${rbacAdminView} \
+    --rm \
+    --name saul-python \
+    saul-python
+
+run-local-mount:
 	docker run -it -p ${localPort}:8082 \
     --env SERVER_DEBUG_MODE=${serverDebug} \
     --env DEBUG_MODE=${appDebug} \
