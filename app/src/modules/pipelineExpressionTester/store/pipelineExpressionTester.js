@@ -75,7 +75,7 @@ export default {
     actions: {
         getApplications({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(envConfig.NODE_ENV !== 'development'){
+                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting Applications");
                     api.get(gateEndpoints.applicationsUrl(getters.appConfig)).then(
                         (response)=>{
@@ -103,7 +103,7 @@ export default {
         },
         getApplicationPipelineConfigs({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(envConfig.NODE_ENV !== 'development'){
+                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting Pipeline Configs");
                     api.get(gateEndpoints.pipelineConfigsUrl(getters.appConfig,payload)).then(
                         (response)=>{
@@ -131,7 +131,7 @@ export default {
         },
         getApplicationPipelineExecutions({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(envConfig.NODE_ENV !== 'development'){
+                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting Pipeline Executions");
                     api.get(gateEndpoints.pipelineExecutionsUrl(getters.appConfig,payload)).then(
                         (response)=>{
@@ -161,7 +161,7 @@ export default {
             return new Promise ((resolve,reject)=>{
                 let test = payload;
                 let requestExpression =  '${ ' + payload.expression  + ' }';
-                if(envConfig.NODE_ENV !== 'development'){
+                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting Expression Evaluation");
                     let requestConfig = {
                         headers: {

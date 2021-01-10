@@ -37,7 +37,7 @@ export default {
             context.commit("setInvalidSessionAlertActive",payload);
         },
         logIn({commit,getters},payload){
-            if(envConfig.NODE_ENV !== 'development'){
+            if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                 window.open(gateEndpoints.loginRedirectUrl(getters.appConfig,envConfig),'_self');
             } else {
                 return new Promise( (resolve,reject) => {
@@ -52,7 +52,7 @@ export default {
         },
         requestUser({commit,getters},payload){
             return new Promise( (resolve,reject) => {
-                if(envConfig.NODE_ENV !== 'development'){
+                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting User from " + gateEndpoints.userDetailsUrl(getters.appConfig));
                     api.get(
                         gateEndpoints.userDetailsUrl(getters.appConfig)
@@ -83,7 +83,7 @@ export default {
         },
         logout({commit,getters},payload){
             return new Promise((resolve,reject)=>{
-                if(envConfig.NODE_ENV !== 'development'){
+                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting Logout from " + gateEndpoints.logOutUrl(getters.appConfig));
                     api.get(
                         gateEndpoints.logOutUrl(getters.appConfig)

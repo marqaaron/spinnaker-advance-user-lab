@@ -11,6 +11,33 @@ from flask import Flask, jsonify, request, redirect
 ### GLOBALS ###
 app = Flask(__name__)
 
+@app.route('/saul-api/config', methods=['GET'])
+def config():
+    response = {}
+    if 'BASE_DECK_URL' in environ:
+        response['BASE_DECK_URL'] = environ['BASE_DECK_URL'] if environ['BASE_DECK_URL'] != '' else "https://spinnaker.example.com"
+    else:
+        response['BASE_DECK_URL'] = "https://spinnaker.example.com"
+    if 'BASE_GATE_URL' in environ:
+        response['BASE_GATE_URL'] = environ['BASE_GATE_URL'] if environ['BASE_GATE_URL'] != '' else "https://spinnaker.example.com/api/v1"
+    else:
+        response['BASE_DECK_URL'] = "https://spinnaker.example.com/api/v1"
+    if 'VERSION' in environ:
+        response['VERSION'] = environ['VERSION'] if environ['VERSION'] != '' else "local"
+    else:
+        response['VERSION'] = "local"
+    if 'AUTHENTICATION_ENABLED' in environ:
+        response['AUTHENTICATION_ENABLED'] = environ['AUTHENTICATION_ENABLED'] == 'true'
+    else:
+        response['AUTHENTICATION_ENABLED'] = True
+    if 'RBAC_ROLE_ADMIN_VIEW' in environ:
+        response['RBAC_ROLE_ADMIN_VIEW'] = environ['RBAC_ROLE_ADMIN_VIEW'] if environ['RBAC_ROLE_ADMIN_VIEW'] != '' else False
+    else:
+        response['RBAC_ROLE_ADMIN_VIEW'] = False
+    if 'DEBUG_MODE' in environ:
+        response['DEBUG_MODE'] = environ['DEBUG_MODE'] == 'true'
+    return jsonify(response)
+
 @app.route('/saul-api/releases/images', methods=['GET'])
 def images():
     data = requests.get('https://hub.docker.com/v2/repositories/marqaaron/spinnaker-saul/tags/')

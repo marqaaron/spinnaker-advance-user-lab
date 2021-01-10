@@ -104,7 +104,7 @@ export default {
         },
         getImages({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(envConfig.NODE_ENV !== 'development'){
+                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting Images");
                     api.get(getters.imageListDockerLink).then(
                         (response)=>{

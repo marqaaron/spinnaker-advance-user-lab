@@ -2,11 +2,13 @@ import log from "@/core/utilities/log";
 import {envConfig} from "@/main";
 import api from "@/core/utilities/api";
 import gateEndpoints from "@/modules/pipelineExpressionTester/store/gateEndpoints";
+import {appConfig as appConfigMockData} from "@/modules/appConfig/store/mockData";
 
 export default {
     state: {
         appConfig: null,
-        appConfigUnavailable: false
+        appConfigUnavailable: false,
+        appConfigMockData: appConfigMockData
     },
     getters: {
         appConfig(state){
@@ -14,6 +16,9 @@ export default {
         },
         appConfigUnavailable(state){
             return state.appConfigUnavailable;
+        },
+        appConfigMockData(state){
+            return state.appConfigMockData
         }
     },
     actions: {
@@ -25,20 +30,22 @@ export default {
         },
         getAppConfig({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(envConfig.NODE_ENV !== 'development'){
-                    log.text("Setting AppConfig to window.__env");
-                    setTimeout(()=>{
-                        commit("setAppConfig", {...window.__env});
-                        window.__env = null;
-                        log.text(getters.appConfig)
-                        resolve(true);
-                    },1500);
+                if(envConfig.VUE_APP_SAUL_HTTP_REQUESTS === 'enabled'){
+                    api.get("/saul-api/config").then(
+                        (response)=>{
+                            setTimeout(()=>{
+                                commit("setAppConfig",response.data)
+                                resolve(true);
+                            },1000)
+                        },
+                        (error)=>{
+                            reject(api.error(error));
+                        }
+                    )
                 } else {
-                    log.text("Setting AppConfig to window.__env");
                     setTimeout(()=>{
-                        commit("setAppConfig", {...window.__env});
+                        commit("setAppConfig", {...getters.appConfigMockData});
                         window.__env = null;
-                        log.text(getters.appConfig)
                         resolve(true);
                         //reject(true);
                     },1500);

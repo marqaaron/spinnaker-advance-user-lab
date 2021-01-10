@@ -35,7 +35,6 @@ export default {
         }
     },
     created() {
-        log.obj('Environment Config', envConfig);
         this.onWindowResize();
         window.addEventListener("resize",this.onWindowResize);
     },
