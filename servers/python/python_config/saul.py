@@ -11,6 +11,13 @@ from flask import Flask, jsonify, request, redirect
 ### GLOBALS ###
 app = Flask(__name__)
 
+@app.route('/saul-api/healthz', methods=['GET'])
+def healthz():
+    response = {
+        'saul_data': 'SAUL API Up and Running'
+    }
+    return jsonify(response)
+
 @app.route('/saul-api/config', methods=['GET'])
 def config():
     response = {}
