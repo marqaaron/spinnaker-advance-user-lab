@@ -1,18 +1,19 @@
 import Vue from 'vue';
-
-// IMPORT & APPLY VUE COMPONENTS
 import {baseMain} from "@/core/baseMain";
-baseMain();
-
-// IMPORT CUSTOM SCSS STYLING
 import '@/customize-styles.scss';
+import Vuex from 'vuex';
+import vuexModules from "@/modules/vuexModules";
+import VueRouter from 'vue-router';
+import {baseRoutes} from "@/core/routes/routes";
+import App from '@/App.vue';
+
+// APPLY VUE COMPONENTS
+baseMain();
 
 // EXPORT ENVIRONMENT CONFIG
 export const envConfig = process.env;
 
 // INITIALIZE VUEX STORE AND MODULES
-import Vuex from 'vuex';
-import vuexModules from "@/modules/vuexModules";
 Vue.use(Vuex);
 const vuexConfig = {
   modules: vuexModules,
@@ -22,16 +23,7 @@ const vuexConfig = {
 // EXPORT STORE
 export const store = new Vuex.Store(vuexConfig);
 
-// SET APP CONFIG IN STORE
-store.dispatch('setAppConfig',{...window.__env});
-
-// CLEAR INITIAL APP CONFIG INJECTOR
-window.__env = null;
-
-
 // INITIALIZE ROUTER
-import VueRouter from 'vue-router';
-import {baseRoutes} from "@/core/routes/routes";
 Vue.use(VueRouter);
 export const routes = baseRoutes;
 const router = new VueRouter({
@@ -41,8 +33,6 @@ const router = new VueRouter({
 });
 
 // INITIALIZE APP
-import App from '@/App.vue';
-
 new Vue({
   el: '#app',
   render: h => h(App),

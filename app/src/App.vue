@@ -1,5 +1,11 @@
 <template>
-    <div>
+    <div v-if="!appConfig && !activeCover">
+        <loading-screen></loading-screen>
+    </div>
+    <div v-else-if="!appConfig && activeCover">
+        <cover></cover>
+    </div>
+    <div v-else>
         <b-container id="app" fluid="true" class="app-container"
                      :style="mainContentAreaStyles">
             <nav-bar></nav-bar>
@@ -20,6 +26,7 @@ import Documentation from "@/modules/documentation/Documentation";
 import {envConfig} from "@/main";
 import log from "@/core/utilities/log";
 import alerts from "@/core/utilities/alerts";
+import LoadingScreen from "@/core/layout/components/LoadingScreen";
 
 export default {
     data () {
@@ -29,25 +36,15 @@ export default {
     },
     created() {
         log.obj('Environment Config', envConfig);
-        log.obj('App Config', this.appConfig);
         this.onWindowResize();
         window.addEventListener("resize",this.onWindowResize);
-        if(this.releasesAvailable){
-            this.$store.dispatch('getReleases').then(
-                (result)=>{
-                    log.obj('Vuex getReleases Promise returned',result);
-                },
-                (error)=>{
-                    this.$swal(alerts.endpointError(error));
-                }
-            );
-        }
     },
     components: {
         'nav-bar': Navbar,
         'main-menu': MainMenu,
         'cover': Cover,
-        'documentation': Documentation
+        'documentation': Documentation,
+        'loading-screen': LoadingScreen
     },
     computed: {
         ...mapGetters([
@@ -58,7 +55,7 @@ export default {
             'mainContentAreaStyles',
             'displayTooSmallWatchBreakpoint',
             'releasesAvailable',
-            'appConfig'
+            'appConfig',
         ])
     },
     methods: {
@@ -69,15 +66,17 @@ export default {
                 this.windowWidth = window.innerWidth;
             }
             if(this.windowWidth < this.displayTooSmallWatchBreakpoint){
-                if(this.windowWidth < this.minBrowserWidth){
-                    this.$store.dispatch('setActiveCover','displayTooSmall')
-                } else {
-                    this.$store.dispatch('setActiveCover',null);
-                }
-                if(this.appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
-                    this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
-                } else if(this.appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
-                    this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
+                if(this.appConfig){
+                    if(this.windowWidth < this.minBrowserWidth){
+                        this.$store.dispatch('setActiveCover','displayTooSmall')
+                    } else {
+                        this.$store.dispatch('setActiveCover',null);
+                    }
+                    if(this.appConfig.BASE_DECK_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
+                        this.$store.dispatch('setActiveCover','missingBaseDeckUrlEnvVariable');
+                    } else if(this.appConfig.BASE_GATE_URL === 'https://spinnaker.example.com' && envConfig.NODE_ENV === 'production'){
+                        this.$store.dispatch('setActiveCover','missingBaseGateUrlEnvVariable');
+                    }
                 }
             }
             if(this.windowWidth < this.pinMenuBreakpoint && this.pinMenu){
@@ -88,6 +87,22 @@ export default {
             }
 
         }
+    },
+    watch: {
+      appConfig(newVal){
+          if(newVal){
+              if(this.releasesAvailable){
+                  this.$store.dispatch('getReleases').then(
+                      (result)=>{
+                          log.obj('Vuex getReleases Promise returned',result);
+                      },
+                      (error)=>{
+                          this.$swal(alerts.endpointError(error));
+                      }
+                  );
+              }
+          }
+      }
     }
 }
 </script>

@@ -13,19 +13,76 @@ import ToolsView from "@/views/ToolsView";
 import ReferenceView from "@/views/ReferenceView";
 import AdminView from "@/views/AdminView";
 
+const handleAuthenticationAndRbac = function(_routeDetails){
+    if(store.getters.appConfig.AUTHENTICATION_ENABLED){
+        pullSaveUserDataFromLocalStorage();
+        if(_routeDetails.enforceAuthentication){
+            enforceAuthentication(_routeDetails.next);
+        }
+        if(_routeDetails.enforceAlreadyLoggedIn){
+            enforceAlreadyAuthenticated(_routeDetails.next);
+        }
+        if(_routeDetails.enforceRbacWithRole){
+            enforceRBACByRole(_routeDetails.next,_routeDetails.from,_routeDetails.enforceRbacWithRole);
+        }
+    } else {
+        removeUserDataFromLocalStorage();
+    }
+    _routeDetails.next();
+}
+
+const handleCustomLoginViewLogic = function(_next){
+    if(store.getters.appConfig.AUTHENTICATION_ENABLED){
+        pullSaveUserDataFromLocalStorage();
+        if(store.getters.isLoggedIn){
+            return _next(store.getters.redirects.login);
+        } else {
+            store.dispatch('requestUser').then(
+                (response)=>{
+                    if(response){
+                        enforceAlreadyAuthenticated(_next);
+                    } else {
+                        return _next();
+                    }
+                },
+                ()=>{
+                    return _next();
+                }
+            )
+        }
+    } else {
+        removeUserDataFromLocalStorage();
+        redirectToLoginLocation(_next);
+    }
+    _next();
+}
+
 export const baseRoutes = [
     {
         path: '/tools/:activeContent?',
         name: 'viewTools',
         component: ToolsView,
         beforeEnter(to, from, next) {
-            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
-                pullSaveUserDataFromLocalStorage();
-                enforceAuthentication(next);
-            } else {
-                removeUserDataFromLocalStorage();
+            let routeDetails = {
+                to: to,
+                from: from,
+                next: next,
+                enforceAuthentication: true,
+                enforceAlreadyLoggedIn: false,
+                enforceRbacWithRole: null
             }
-            next();
+            if(store.getters.appConfig === null){
+                store.dispatch("getAppConfig",true).then(
+                    ()=>{
+                        handleAuthenticationAndRbac(routeDetails);
+                    },
+                    ()=>{
+                        store.dispatch('setActiveCover','missingAppConfig');
+                    }
+                )
+            } else {
+                handleAuthenticationAndRbac(routeDetails);
+            }
         }
     },
     {
@@ -33,13 +90,26 @@ export const baseRoutes = [
         name: 'viewReference',
         component: ReferenceView,
         beforeEnter(to, from, next) {
-            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
-                pullSaveUserDataFromLocalStorage();
-                enforceAuthentication(next);
-            } else {
-                removeUserDataFromLocalStorage();
+            let routeDetails = {
+                to: to,
+                from: from,
+                next: next,
+                enforceAuthentication: true,
+                enforceAlreadyLoggedIn: false,
+                enforceRbacWithRole: null
             }
-            next();
+            if(store.getters.appConfig === null){
+                store.dispatch("getAppConfig",true).then(
+                    ()=>{
+                        handleAuthenticationAndRbac(routeDetails);
+                    },
+                    ()=>{
+                        store.dispatch('setActiveCover','missingAppConfig');
+                    }
+                )
+            } else {
+                handleAuthenticationAndRbac(routeDetails);
+            }
         }
     },
     {
@@ -47,14 +117,28 @@ export const baseRoutes = [
         name: 'viewAdmin',
         component: AdminView,
         beforeEnter(to, from, next) {
-            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
-                pullSaveUserDataFromLocalStorage();
-                enforceAuthentication(next);
-                enforceRBACByRole(next,from,store.getters.appConfig.RBAC_ROLE_ADMIN_VIEW);
-            } else {
-                removeUserDataFromLocalStorage();
+            let routeDetails = {
+                to: to,
+                from: from,
+                next: next,
+                enforceAuthentication: true,
+                enforceAlreadyLoggedIn: false,
+                enforceRbacWithRole: null
             }
-            next();
+            if(store.getters.appConfig === null){
+                store.dispatch("getAppConfig",true).then(
+                    ()=>{
+                        routeDetails.enforceRbacWithRole = store.getters.appConfig.RBAC_ROLE_ADMIN_VIEW;
+                        handleAuthenticationAndRbac(routeDetails);
+                    },
+                    ()=>{
+                        store.dispatch('setActiveCover','missingAppConfig');
+                    }
+                )
+            } else {
+                routeDetails.enforceRbacWithRole = store.getters.appConfig.RBAC_ROLE_ADMIN_VIEW;
+                handleAuthenticationAndRbac(routeDetails);
+            }
         }
     },
     {
@@ -62,29 +146,18 @@ export const baseRoutes = [
         name: 'viewLogin',
         component: Authentication,
         beforeEnter(to, from, next) {
-            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
-                pullSaveUserDataFromLocalStorage();
-                if(store.getters.isLoggedIn){
-                    return next(store.getters.redirects.login);
-                } else {
-                    store.dispatch('requestUser').then(
-                        (response)=>{
-                            if(response){
-                                enforceAlreadyAuthenticated(next);
-                            } else {
-                                return next();
-                            }
-                        },
-                        ()=>{
-                            return next();
-                        }
-                    )
-                }
+            if(store.getters.appConfig === null){
+                store.dispatch("getAppConfig",true).then(
+                    ()=>{
+                        handleCustomLoginViewLogic(next)
+                    },
+                    ()=>{
+                        store.dispatch('setActiveCover','missingAppConfig');
+                    }
+                )
             } else {
-                removeUserDataFromLocalStorage();
-                redirectToLoginLocation(next);
+                handleCustomLoginViewLogic(next)
             }
-            next();
         }
     },
     {
@@ -95,14 +168,26 @@ export const baseRoutes = [
         path: '*',
         component: NotFound,
         beforeEnter(to, from, next) {
-            if(store.getters.appConfig.AUTHENTICATION_ENABLED){
-                pullSaveUserDataFromLocalStorage();
-                enforceAlreadyAuthenticated(next);
-                enforceAuthentication(next);
-            } else {
-                removeUserDataFromLocalStorage();
+            let routeDetails = {
+                to: to,
+                from: from,
+                next: next,
+                enforceAuthentication: true,
+                enforceAlreadyLoggedIn: true,
+                enforceRbacWithRole: null
             }
-            next();
+            if(store.getters.appConfig === null){
+                store.dispatch("getAppConfig",true).then(
+                    ()=>{
+                        handleAuthenticationAndRbac(routeDetails);
+                    },
+                    ()=>{
+                        store.dispatch('setActiveCover','missingAppConfig');
+                    }
+                )
+            } else {
+                handleAuthenticationAndRbac(routeDetails);
+            }
         }
     }
 ];
