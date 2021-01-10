@@ -56,6 +56,7 @@ run-local:
     --env BASE_DECK_URL=${baseDeckUrl} \
     --env AUTHENTICATION_ENABLED=${authenticationEnabled} \
     --env RBAC_ROLE_ADMIN_VIEW=${rbacAdminView} \
+    --env VERSION=${version} \
     --rm \
     -v ~/Repositories/saul/servers/python/python_config:/usr/src/app \
     --name saul-python \

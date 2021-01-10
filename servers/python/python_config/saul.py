@@ -30,7 +30,7 @@ def config():
     else:
         response['BASE_DECK_URL'] = "https://spinnaker.example.com/api/v1"
     if 'VERSION' in environ:
-        response['VERSION'] = environ['VERSION'] if environ['VERSION'] != '' else "local"
+        response['VERSION'] = environ['VERSION'] if environ['VERSION'] != '' else "local-python-mockdata"
     else:
         response['VERSION'] = "local"
     if 'AUTHENTICATION_ENABLED' in environ:
