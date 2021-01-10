@@ -21,11 +21,7 @@ chmod +x /servers/nginx/startupNginx.sh
 echo "Changing /system/servers/nginx/startupNginx.sh file to executable"
 chmod +x /servers/python/startupPython.sh
 
-if [ "$APP_SERVER" = 'nginx' ]; then
-  echo "Nginx Server selected for Build"
-  echo "Initiating startupNginx.sh"
-  /bin/bash -c /servers/nginx/startupNginx.sh
-elif [ "$APP_SERVER" = 'python' ]; then
+if [ "$APP_SERVER" = 'python' ]; then
   echo "Python Server selected for Build"
   echo "Initiating startupPython.sh"
   /bin/bash -c /servers/python/startupPython.sh

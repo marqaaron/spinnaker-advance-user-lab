@@ -19,7 +19,7 @@ help:
 	@echo "Makefile Arguments:"
 	@echo ""
 	@echo "Build Related Arguments:"
-	@echo "appServer (Default 'python'. Accepts either 'python' or 'nginx')"
+	@echo "appServer (Default 'python'. Only accepts 'python' for now.)"
 	@echo "version (Default 'local'. Production format 'v0.0.0')"
 	@echo ""
 	@echo "Server Related Arguments:"
@@ -49,18 +49,6 @@ build-local:
 	.
 
 run-local:
-	docker run -it -p ${localPort}:8082 \
-    --env SERVER_DEBUG_MODE=${serverDebug} \
-    --env DEBUG_MODE=${appDebug} \
-    --env BASE_GATE_URL=${baseGateUrl} \
-    --env BASE_DECK_URL=${baseDeckUrl} \
-    --env AUTHENTICATION_ENABLED=${authenticationEnabled} \
-    --env RBAC_ROLE_ADMIN_VIEW=${rbacAdminView} \
-    --rm \
-    --name saul-python \
-    saul-python
-
-run-local-mount:
 	docker run -it -p ${localPort}:8082 \
     --env SERVER_DEBUG_MODE=${serverDebug} \
     --env DEBUG_MODE=${appDebug} \
