@@ -29,7 +29,7 @@ export default {
         },
         getAppConfig({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
-                if(envConfig.VUE_APP_SAUL_HTTP_REQUESTS === 'enabled'){
+                if(envConfig.VUE_APP_SAUL_APP_CONFIG === 'enabled'){
                     log.text("Requesting App Config");
                     api.get("/saul-api/config").then(
                         (response)=>{
