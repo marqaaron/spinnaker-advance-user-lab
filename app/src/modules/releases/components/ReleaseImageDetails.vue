@@ -2,7 +2,7 @@
     <div class="release-image-details-container">
         <b-row>
             <b-col cols="12" class="text-center bold image-details-header">
-                Image Details
+                <b-icon icon="box" aria-hidden="true" class="mr-2"></b-icon><span>Image Details</span>
                 <hr>
             </b-col>
             <b-col cols="12">
