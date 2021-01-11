@@ -69,7 +69,7 @@ SAUL requires the following Kubernetes resources to be deployed successfully:
 
 We have created Kubernetes manifests located in the `manifests/deploy` directory that have been tested to successfully 
 deploy SAUL into a Spinnaker Kubernetes Cluster under one of two approaches:
-1. Basic [manifests/deploy/basic](./manifests/deploy/basic)
+1. Basic [manifests/deploy/basic](manifests/deploy/basic)
     * This is the manual approach where you will need to edit all three of the manifests to meet your specific.
     * Copy all the files in the `basic` directory
     * Edit the files as prescribed by the comments
@@ -86,7 +86,7 @@ deploy SAUL into a Spinnaker Kubernetes Cluster under one of two approaches:
         ```
         kubectl apply -f deployment.yml
         ```
-2. Kustomize [manifests/deploy/kustomize](./manifests/deploy/kustomize)
+2. Kustomize [manifests/deploy/kustomize](manifests/deploy/kustomize)
     * This is our preferred deployment method but also requires that you have `kustomize` installed on your workstation.
         * [Documentation](https://kubectl.docs.kubernetes.io/installation/kustomize/)
     * Obtain all the files/directories in the `kustomize` directory of the repo
@@ -106,7 +106,7 @@ in our development environment.  That said, other ingress capabilities should be
 same result.
 
 If you are using the Nginx Ingress Controller, we have provided two example Ingress manifests located in the 
-[manifests/ingresses/nginx-ingress-controller](./manifests/ingress/nginx-ingress-controller) directory.  The ingresses
+[manifests/ingresses/nginx-ingress-controller](manifests/ingress/nginx-ingress-controller) directory.  The ingresses
 are configured to use the Kubernetes cert-manager to auto-generate SSL certificates so if you are not using cert-manager
 you will need to remove these sections.  You will also need to edit the example ingress to make sure domains and namespaces
 match your environment.

@@ -56,3 +56,4 @@ jobs:
           tags: ${{steps.docker_metadata.outputs.tags}}
           build-args: |
             VERSION=${{steps.vars.outputs.sha_short}}
+            APP_SERVER=python
