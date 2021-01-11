@@ -1,7 +1,6 @@
 import log from "@/core/utilities/log";
 import {envConfig} from "@/main";
 import api from "@/core/utilities/api";
-import gateEndpoints from "@/modules/pipelineExpressionTester/store/gateEndpoints";
 import {appConfig as appConfigMockData} from "@/modules/appConfig/store/mockData";
 
 export default {
@@ -31,24 +30,27 @@ export default {
         getAppConfig({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
                 if(envConfig.VUE_APP_SAUL_HTTP_REQUESTS === 'enabled'){
+                    log.text("Requesting App Config");
                     api.get("/saul-api/config").then(
                         (response)=>{
                             setTimeout(()=>{
+                                log.text("App Config successfully retrieved");
                                 commit("setAppConfig",response.data)
                                 resolve(true);
                             },1000)
                         },
                         (error)=>{
+                            log.obj("Pipeline Executions Request Error",error);
                             reject(api.error(error));
                         }
                     )
                 } else {
                     setTimeout(()=>{
+                        log.text("Setting App Config to MockData");
                         commit("setAppConfig", {...getters.appConfigMockData});
                         window.__env = null;
                         resolve(true);
-                        //reject(true);
-                    },1500);
+                    },1000);
                 }
             })
         },
