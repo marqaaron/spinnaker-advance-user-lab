@@ -38,7 +38,6 @@ help:
 	@echo "Make Commands:"
 	@echo "build-local (Builds Docker Image locally for development)"
 	@echo "run-local (Runs Docker Image locally for development)"
-	@echo "run-local-mount (Runs Docker Image locally with python_config directory mounted for development)"
 
 
 build-local:
