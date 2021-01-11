@@ -19,7 +19,7 @@ help:
 	@echo "Makefile Arguments:"
 	@echo ""
 	@echo "Build Related Arguments:"
-	@echo "appServer (Default 'python'. Accepts either 'python' or 'nginx')"
+	@echo "appServer (Default 'python'. Accepts only 'python')"
 	@echo "version (Default 'local'. Production format 'v0.0.0')"
 	@echo ""
 	@echo "Server Related Arguments:"
@@ -38,6 +38,7 @@ help:
 	@echo "Make Commands:"
 	@echo "build-local (Builds Docker Image locally for development)"
 	@echo "run-local (Runs Docker Image locally for development)"
+	@echo "dist-to-static (Copies contents of app/dist to servers/python/python_config/static then deletes app/dist)"
 
 
 build-local:
@@ -58,3 +59,6 @@ run-local:
     --rm \
     --name spinnaker-saul \
     spinnaker-saul
+
+dist-to-static:
+	cp -r app/dist/ servers/python/python_config/static && rm -rf app/dist
