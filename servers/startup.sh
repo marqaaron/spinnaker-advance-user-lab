@@ -16,9 +16,6 @@ echo "Exporting APP_SERVER from file"
 export APP_SERVER=$(cat /env/app_server)
 
 echo "Changing /system/servers/nginx/startupNginx.sh file to executable"
-chmod +x /servers/nginx/startupNginx.sh
-
-echo "Changing /system/servers/nginx/startupNginx.sh file to executable"
 chmod +x /servers/python/startupPython.sh
 
 if [ "$APP_SERVER" = 'python' ]; then

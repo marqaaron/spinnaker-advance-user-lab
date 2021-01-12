@@ -3,7 +3,7 @@
 echo "--------- Base Image Logs -----------"
 
 echo "Installing required packages"
-apk add --no-cache nginx python3 py3-pip
+apk add --no-cache python3 py3-pip
 
 if [ "$APP_SERVER" = 'python' ]; then
   echo "Installing required python packages"

@@ -67,7 +67,7 @@ def versions():
 @app.route('/saul/<path:path>')
 def catch_all_saul(path):
     logging.info("Path: %s", path)
-    allowedStaticFileRoutes = ['css','img','js','favicon.ico','env.js']
+    allowedStaticFileRoutes = ['css','img','js','favicon.ico']
     pathParts = path.split('/')
     if pathParts[0] in allowedStaticFileRoutes:
         return app.send_static_file(path)
