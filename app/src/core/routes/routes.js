@@ -42,7 +42,7 @@ const handleCustomLoginViewLogic = function(_next){
                     if(response){
                         enforceAlreadyAuthenticated(_next);
                     } else {
-                        return _next();
+                       return _next();
                     }
                 },
                 ()=>{
@@ -54,7 +54,7 @@ const handleCustomLoginViewLogic = function(_next){
         removeUserDataFromLocalStorage();
         redirectToLoginLocation(_next);
     }
-    _next();
+    return _next();
 }
 
 export const baseRoutes = [
