@@ -8,12 +8,16 @@ const envConfig = process.env;
 export default {
     state: {
         isLoggedIn: false,
+        isRequestingUser: false,
         invalidSessionAlertActive: false,
         details: null,
     },
     getters: {
         isLoggedIn(state,getters,rootState) {
             return state.isLoggedIn;
+        },
+        isRequestingUser(state,getters,rootState) {
+            return state.isRequestingUser;
         },
         details(state,getters,rootState){
             return state.details;
@@ -33,6 +37,9 @@ export default {
         setIsLoggedIn(context,payload){
             context.commit("setIsLoggedIn",payload);
         },
+        setIsRequestingUser(context,payload){
+            context.commit("setIsRequestingUser",payload);
+        },
         setInvalidSessionAlertActive(context,payload){
             context.commit("setInvalidSessionAlertActive",payload);
         },
@@ -51,6 +58,7 @@ export default {
             }
         },
         requestUser({commit,getters},payload){
+            commit("setIsRequestingUser",true);
             return new Promise( (resolve,reject) => {
                 if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
                     log.text("Requesting User from " + gateEndpoints.userDetailsUrl(getters.appConfig));
@@ -58,6 +66,7 @@ export default {
                         gateEndpoints.userDetailsUrl(getters.appConfig)
                     ).then(
                         (response) => {
+                            commit("setIsRequestingUser",false);
                             log.text("User Details Request successful");
                             if(typeof response.data.email !== 'undefined'){
                                 commit("toggleIsLoggedIn",true);
@@ -68,6 +77,7 @@ export default {
                             }
                         },
                         (error) => {
+                            commit("setIsRequestingUser",false);
                             log.obj("Login Request Error",error);
                             reject(api.error(error));
                         }
@@ -75,6 +85,7 @@ export default {
                 } else {
                     log.text("User Details Request skipped in Dev Environment");
                     setTimeout(()=>{
+                        commit("setIsRequestingUser",false);
                         resolve(true);
                     },1000);
                 }
@@ -116,6 +127,9 @@ export default {
     mutations: {
         setIsLoggedIn(state,payload){
             state.isLoggedIn = payload;
+        },
+        setIsRequestingUser(state,payload){
+            state.isRequestingUser = payload;
         },
         toggleIsLoggedIn(state, payload) {
             if(payload != null){

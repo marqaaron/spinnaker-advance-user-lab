@@ -10,38 +10,60 @@
                 offset-lg="3"
             >
                 <b-button-group class="btn-block">
-                    <b-button variant="success" @click="onLogin">Login</b-button>
+                    <b-button variant="success" @click="onLogin" :disabled="isRequestingUser || loggingIn">
+                        <font-awesome-icon icon="sync"
+                                           v-if="isRequestingUser || loggingIn"
+                                           :spin="isRequestingUser || loggingIn"
+                        ></font-awesome-icon>
+                        Login
+                    </b-button>
                 </b-button-group>
+                <p v-if="isRequestingUser" class="mt-2 auto-login-text">Attempting to Auto Login...</p>
             </b-col>
         </b-row>
     </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
+import {mapGetters} from "vuex";
+export default {
+    data() {
+        return {
+            loggingIn: false
+        }
+    },
+    created() {
 
-            }
-        },
-        created() {
-
-        },
-        computed: {
-
-        },
-        methods: {
-            onLogin(){
+    },
+    computed: {
+        ...mapGetters([
+            'isRequestingUser'
+        ])
+    },
+    methods: {
+        onLogin(){
+            this.loggingIn = true;
+            setTimeout(()=>{
                 this.$store.dispatch('logIn');
-            }
-        },
-        components: {},
-        watch: {}
+            },500)
+        }
+    },
+    components: {
+
+    },
+    watch: {
+
     }
+}
 </script>
 
 <style scoped>
     #loginButtonContainer{
         margin-top:25px;
+    }
+    .auto-login-text {
+        font-size:1.2rem;
+        color:grey;
+        text-align: center;
     }
 </style>
