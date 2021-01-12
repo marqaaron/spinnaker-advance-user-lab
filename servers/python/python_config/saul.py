@@ -7,9 +7,11 @@ import requests
 
 from os import environ
 from flask import Flask, jsonify, request, redirect
+from flask_caching import Cache
 
 ### GLOBALS ###
 app = Flask(__name__)
+cache = Cache(app,config={'CACHE_TYPE': 'simple'})
 
 @app.route('/saul-api/healthz', methods=['GET'])
 def healthz():
@@ -46,6 +48,7 @@ def config():
     return jsonify(response)
 
 @app.route('/saul-api/releases/images', methods=['GET'])
+@cache.cached(timeout=300)
 def images():
     data = requests.get('https://hub.docker.com/v2/repositories/marqaaron/spinnaker-saul/tags/')
     response = {}
@@ -53,6 +56,7 @@ def images():
     return jsonify(response)
 
 @app.route('/saul-api/releases/versions', methods=['GET'])
+@cache.cached(timeout=300)
 def versions():
     data = requests.get('https://api.github.com/repos/marqaaron/spinnaker-advanced-user-lab/releases')
     response = {}
@@ -63,15 +67,9 @@ def versions():
 @app.route('/saul/<path:path>')
 def catch_all_saul(path):
     logging.info("Path: %s", path)
-    if 'css/' in path:
-        return app.send_static_file(path)
-    elif 'js/' in path:
-        return app.send_static_file(path)
-    elif 'img/' in path:
-        return app.send_static_file(path)
-    elif 'env.js' in path:
-        return app.send_static_file(path)
-    elif 'favicon' in path:
+    allowedStaticFileRoutes = ['css','img','js','favicon.ico']
+    pathParts = path.split('/')
+    if pathParts[0] in allowedStaticFileRoutes:
         return app.send_static_file(path)
     else:
         return app.send_static_file("index.html")
