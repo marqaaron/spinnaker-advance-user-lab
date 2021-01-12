@@ -66,15 +66,17 @@ export default {
                         gateEndpoints.userDetailsUrl(getters.appConfig)
                     ).then(
                         (response) => {
-                            commit("setIsRequestingUser",false);
-                            log.text("User Details Request successful");
-                            if(typeof response.data.email !== 'undefined'){
-                                commit("toggleIsLoggedIn",true);
-                                commit("setUserDetails",response.data);
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
+                            setTimeout(()=>{
+                                commit("setIsRequestingUser",false);
+                                log.text("User Details Request successful");
+                                if(typeof response.data.email !== 'undefined'){
+                                    commit("toggleIsLoggedIn",true);
+                                    commit("setUserDetails",response.data);
+                                    resolve(true);
+                                } else {
+                                    resolve(false);
+                                }
+                            },1000)
                         },
                         (error) => {
                             commit("setIsRequestingUser",false);
