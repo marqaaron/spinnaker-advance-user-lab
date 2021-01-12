@@ -2,6 +2,9 @@
 appServer=python
 version=local-python-mockdata
 
+# Run Related Arguments
+topDirectory=$(PWD)
+
 # Server Related Arguments
 serverDebug='true'
 
@@ -57,6 +60,6 @@ run-local:
     --env RBAC_ROLE_ADMIN_VIEW=${rbacAdminView} \
     --env VERSION=${version} \
     --rm \
-    -v ~/Repositories/saul/servers/python/python_config:/usr/src/app \
+    -v ${topDirectory}:/usr/src/app \
     --name saul-python \
     saul-python
