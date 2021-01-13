@@ -244,6 +244,7 @@
                             this.pipelineConfigsLoading = false;
                         } else {
                             log.obj('Vuex getApplicationPipelineConfigs Promise returned',result);
+                            this.$store.dispatch("setApplicationPipelineConfigs",result);
                             this.pipelineConfigsLoading = false;
                         }
                     },
@@ -263,6 +264,7 @@
                             this.pipelineExecutionsLoading = false;
                         } else {
                             log.obj('Vuex getApplicationPipelineExecutions Promise returned',result);
+                            this.$store.dispatch("setApplicationPipelineExecutions",result);
                             this.pipelineExecutionsLoading = false;
                         }
                     },

@@ -6,7 +6,8 @@ import DocumentationModule from "@/modules/documentation/store/documentation";
 import SharedModule from "@/modules/shared/store/shared";
 import ReleasesModule from "@/modules/releases/store/releases";
 import AppConfigModule from "@/modules/appConfig/store/appConfig";
-import PipelinesInsights from "@/modules/pipelinesInsights/store/pipelinesInsights";
+import PipelinesInsightsModule from "@/modules/pipelinesInsights/store/pipelinesInsights";
+import SpinnakerDataModule from "@/modules/spinnakerData/store/spinnakerData";
 
 export default {
   layout: LayoutModule,
@@ -17,5 +18,6 @@ export default {
   shared: SharedModule,
   releases: ReleasesModule,
   appConfig: AppConfigModule,
-  pipelineInsights: PipelinesInsights
+  pipelineInsights: PipelinesInsightsModule,
+  spinnakerData: SpinnakerDataModule
 }

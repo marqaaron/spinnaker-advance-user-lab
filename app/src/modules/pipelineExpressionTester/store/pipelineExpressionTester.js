@@ -1,17 +1,13 @@
 import api from "@/core/utilities/api";
 import log from "@/core/utilities/log";
-import {applications,applicationPipelineConfigs,applicationPipelineExecutions, successfulResults, failureResults} from "./mockData";
+import {successfulResults, failureResults} from "./mockData";
 import gateEndpoints from "@/modules/pipelineExpressionTester/store/gateEndpoints";
 import {envConfig} from "@/main";
 
 export default {
     state: {
-        applications: [],
-        applicationsMockData: applications,
         applicationPipelineConfigs: [],
-        applicationPipelineConfigsMockData: applicationPipelineConfigs,
         applicationPipelineExecutions: [],
-        applicationPipelineExecutionsMockData: applicationPipelineExecutions,
         expressionEvaluationHistory: [],
         defaultExpressionEvaluation: {
             applicationName: '',
@@ -29,23 +25,11 @@ export default {
         selectedExecutionElementPathInsertMode: false
     },
     getters: {
-        applications(state){
-            return state.applications;
-        },
-        applicationsMockData(state){
-            return state.applicationsMockData;
-        },
         applicationPipelineConfigs(state){
             return state.applicationPipelineConfigs;
         },
-        applicationPipelineConfigsMockData(state){
-            return state.applicationPipelineConfigsMockData;
-        },
         applicationPipelineExecutions(state){
             return state.applicationPipelineExecutions;
-        },
-        applicationPipelineExecutionsMockData(state){
-            return state.applicationPipelineExecutionsMockData;
         },
         expressionEvaluationHistory(state){
             return state.expressionEvaluationHistory;
@@ -73,89 +57,11 @@ export default {
         }
     },
     actions: {
-        getApplications({commit,getters},payload){
-            return new Promise ((resolve,reject)=>{
-                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
-                    log.text("Requesting Applications");
-                    api.get(gateEndpoints.applicationsUrl(getters.appConfig)).then(
-                        (response)=>{
-                            if(gateEndpoints.sessionValid(response)){
-                                log.text("Applications successfully retrieved");
-                                commit("setApplications",response.data);
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
-                        },
-                        (error)=>{
-                            log.obj("Applications Request Error",error);
-                            reject(api.error(error));
-                        }
-                    )
-                } else {
-                    log.text("Setting Applications to MockData");
-                    commit("setApplications",getters.applicationsMockData);
-                    setTimeout(()=>{
-                        resolve(true);
-                    },1000);
-                }
-            })
+        setApplicationPipelineConfigs(context,payload) {
+            context.commit("setApplicationPipelineConfigs",payload);
         },
-        getApplicationPipelineConfigs({commit,getters},payload){
-            return new Promise ((resolve,reject)=>{
-                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
-                    log.text("Requesting Pipeline Configs");
-                    api.get(gateEndpoints.pipelineConfigsUrl(getters.appConfig,payload)).then(
-                        (response)=>{
-                            if(gateEndpoints.sessionValid(response)){
-                                log.text("Pipeline Configs successfully retrieved");
-                                commit("setApplicationPipelineConfigs",response.data);
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
-                        },
-                        (error)=>{
-                            log.obj("Pipeline Configs Request Error",error);
-                            reject(api.error(error));
-                        }
-                    )
-                } else {
-                    log.text("Setting Application Pipeline Configs to MockData");
-                    commit("setApplicationPipelineConfigs",getters.applicationPipelineConfigsMockData);
-                    setTimeout(()=>{
-                        resolve(true);
-                    },1000);
-                }
-            })
-        },
-        getApplicationPipelineExecutions({commit,getters},payload){
-            return new Promise ((resolve,reject)=>{
-                if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
-                    log.text("Requesting Pipeline Executions");
-                    api.get(gateEndpoints.pipelineExecutionsUrl(getters.appConfig,payload)).then(
-                        (response)=>{
-                            if(gateEndpoints.sessionValid(response)){
-                                log.text("Pipeline Executions successfully retrieved");
-                                commit("setApplicationPipelineExecutions",response.data);
-                                resolve(true);
-                            } else {
-                                resolve(false);
-                            }
-                        },
-                        (error)=>{
-                            log.obj("Pipeline Executions Request Error",error);
-                            reject(api.error(error));
-                        }
-                    )
-                } else {
-                    log.text("Setting Application Pipeline Executions to MockData");
-                    commit("setApplicationPipelineExecutions",getters.applicationPipelineExecutionsMockData);
-                    setTimeout(()=>{
-                        resolve(true);
-                    },1000);
-                }
-            })
+        setApplicationPipelineExecutions(context,payload){
+            context.commit("setApplicationPipelineExecutions",payload);
         },
         evaluateExpression({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
@@ -240,9 +146,6 @@ export default {
         }
     },
     mutations: {
-        setApplications(state,payload){
-            state.applications = payload;
-        },
         setApplicationPipelineConfigs(state,payload){
             state.applicationPipelineConfigs = payload;
         },
