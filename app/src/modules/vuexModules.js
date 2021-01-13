@@ -6,6 +6,7 @@ import DocumentationModule from "@/modules/documentation/store/documentation";
 import SharedModule from "@/modules/shared/store/shared";
 import ReleasesModule from "@/modules/releases/store/releases";
 import AppConfigModule from "@/modules/appConfig/store/appConfig";
+import PipelinesInsights from "@/modules/pipelinesInsights/store/pipelinesInsights";
 
 export default {
   layout: LayoutModule,
@@ -15,5 +16,6 @@ export default {
   documentation: DocumentationModule,
   shared: SharedModule,
   releases: ReleasesModule,
-  appConfig: AppConfigModule
+  appConfig: AppConfigModule,
+  pipelineInsights: PipelinesInsights
 }

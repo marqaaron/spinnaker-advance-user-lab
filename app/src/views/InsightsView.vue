@@ -1,6 +1,6 @@
 <template>
     <div class="padded-container" v-if="!isLoadingContent">
-        <placeholder variant="success" message="Insights View Coming Soon!"></placeholder>
+        <pipeline-insights></pipeline-insights>
     </div>
     <div v-else>
         <loading-screen></loading-screen>
@@ -11,7 +11,7 @@
 import LoadingScreen from "@/core/layout/components/LoadingScreen";
 import {mapGetters} from "vuex";
 import helpers from "@/core/utilities/helpers";
-import Placeholder from "@/modules/shared/Placeholder";
+import PipelinesInsights from "@/modules/pipelinesInsights/PipelinesInsights";
 
 export default {
     name: "InsightsView",
@@ -56,7 +56,7 @@ export default {
     },
     components: {
         'loading-screen': LoadingScreen,
-        'placeholder': Placeholder
+        'pipeline-insights': PipelinesInsights
     },
     watch: {
         $route(){
