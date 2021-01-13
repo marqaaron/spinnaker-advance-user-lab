@@ -236,7 +236,10 @@
             },
             requestApplicationPipelineConfigs(_applicationName){
                 this.pipelineConfigsLoading = true;
-                this.$store.dispatch('getApplicationPipelineConfigs',_applicationName).then(
+                let payload = {
+                    applicationName: _applicationName
+                };
+                this.$store.dispatch('getApplicationPipelineConfigs',payload).then(
                     (result) => {
                         if(!result && !this.invalidSessionAlertActive){
                             log.obj('Vuex getApplicationPipelineConfigs Promise returned no result');
@@ -256,7 +259,15 @@
             },
             requestApplicationPipelineExecutions(_applicationName){
                 this.pipelineExecutionsLoading = true;
-                this.$store.dispatch('getApplicationPipelineExecutions',_applicationName).then(
+                let payload = {
+                    applicationName: _applicationName,
+                    config: {
+                        params: {
+                            limit: 20
+                        }
+                    }
+                };
+                this.$store.dispatch('getApplicationPipelineExecutions',payload).then(
                     (result) => {
                         if(!result && !this.invalidSessionAlertActive){
                             log.obj('Vuex getApplicationPipelineExecutions Promise returned no result');

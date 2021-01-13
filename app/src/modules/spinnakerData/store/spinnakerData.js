@@ -55,8 +55,13 @@ export default {
         getApplicationPipelineConfigs({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
                 if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
+                    let applicationName = payload.applicationName;
+                    let config = {};
+                    if(typeof payload.config !== 'undefined'){
+                        config = payload.config;
+                    }
                     log.text("Requesting Pipeline Configs");
-                    api.get(gateEndpoints.pipelineConfigsUrl(getters.appConfig,payload)).then(
+                    api.get(gateEndpoints.pipelineConfigsUrl(getters.appConfig,applicationName),config).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Pipeline Configs successfully retrieved");
@@ -81,8 +86,13 @@ export default {
         getApplicationPipelineExecutions({commit,getters},payload){
             return new Promise ((resolve,reject)=>{
                 if(envConfig.VUE_APP_SPINNAKER_HTTP_REQUESTS === 'enabled'){
+                    let applicationName = payload.applicationName;
+                    let config = {};
+                    if(typeof payload.config !== 'undefined'){
+                        config = payload.config;
+                    }
                     log.text("Requesting Pipeline Executions");
-                    api.get(gateEndpoints.pipelineExecutionsUrl(getters.appConfig,payload)).then(
+                    api.get(gateEndpoints.pipelineExecutionsUrl(getters.appConfig,applicationName),config).then(
                         (response)=>{
                             if(gateEndpoints.sessionValid(response)){
                                 log.text("Pipeline Executions successfully retrieved");
