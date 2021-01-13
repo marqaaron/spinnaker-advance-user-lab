@@ -12,6 +12,7 @@ import Authentication from "@/modules/authentication/Authentication";
 import ToolsView from "@/views/ToolsView";
 import ReferenceView from "@/views/ReferenceView";
 import AdminView from "@/views/AdminView";
+import InsightsView from "@/views/InsightsView";
 
 const handleAuthenticationAndRbac = function(_routeDetails){
     if(store.getters.appConfig.AUTHENTICATION_ENABLED){
@@ -89,6 +90,33 @@ export const baseRoutes = [
         path: '/references/:activeContent?',
         name: 'viewReference',
         component: ReferenceView,
+        beforeEnter(to, from, next) {
+            let routeDetails = {
+                to: to,
+                from: from,
+                next: next,
+                enforceAuthentication: true,
+                enforceAlreadyLoggedIn: false,
+                enforceRbacWithRole: null
+            }
+            if(store.getters.appConfig === null){
+                store.dispatch("getAppConfig",true).then(
+                    ()=>{
+                        handleAuthenticationAndRbac(routeDetails);
+                    },
+                    ()=>{
+                        store.dispatch('setActiveCover','missingAppConfig');
+                    }
+                )
+            } else {
+                handleAuthenticationAndRbac(routeDetails);
+            }
+        }
+    },
+    {
+        path: '/insights/:activeContent?',
+        name: 'viewInsights',
+        component: InsightsView,
         beforeEnter(to, from, next) {
             let routeDetails = {
                 to: to,

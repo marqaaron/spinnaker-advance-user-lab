@@ -40,6 +40,26 @@ export default [
     ]
   },
   {
+    name: 'insights',
+    headerText: 'Insights',
+    link: '/insights',
+    authRequired: true,
+    rbacRequired: false,
+    display: true,
+    hideAfterAuth: false,
+    externalLink: false,
+    listPosition: 3,
+    items: [
+      {
+        name: 'pipelines',
+        title: 'Pipelines',
+        link: '/insights/pipelines',
+        display: true,
+        externalLink: false,
+      }
+    ]
+  },
+  {
     name: 'references',
     headerText: 'References',
     link: '/references',
@@ -48,7 +68,7 @@ export default [
     display: true,
     hideAfterAuth: false,
     externalLink: false,
-    listPosition: 3,
+    listPosition: 4,
     items: [
       {
         name: 'documentation',
@@ -68,7 +88,7 @@ export default [
     display: true,
     hideAfterAuth: false,
     externalLink: false,
-    listPosition: 4,
+    listPosition: 5,
     items: [
       {
         name: 'releases',
